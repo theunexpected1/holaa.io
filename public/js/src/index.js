@@ -1,19 +1,23 @@
 // App
 
-var app = angular.module('app', ['ngMaterial'])
+var app = angular.module('app', ['ngMaterial', 'ngAnimate'])
 	.config( function($mdThemingProvider){
-	// Configure a dark theme with primary foreground yellow
 		$mdThemingProvider.theme('default')
 			.primaryPalette('pink')
 			.accentPalette('blue')
 	})
 	.controller('appController', [
-		'$scope', 
+		'$scope',
 		function($scope){
 			$scope.channel = '#general';
 			$scope.user = {};
+			$scope.userReady = false;
 			$scope.$watch('channel', function(value){
 				$scope.channel = value.indexOf('#') == 0 ? value : '#' + value;
 			});
+
+			$scope.enterChat = function(){
+				$scope.userReady = true;
+			};
 		}
 	]);

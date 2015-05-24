@@ -4,26 +4,46 @@
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+	<style type="text/css">
+		.ng-enter {
+		  transition: all linear 500ms;
+		  opacity: 0;
+		}
+		.ng-enter-active {
+		  opacity: 1;
+		}
+		.ng-leave {
+		  transition: all linear 500ms;
+		  opacity: 1;
+		  transform: translate3d(0, 0, 0);
+		}
+		.ng-leave-active {
+		  opacity: 0;
+		  transform: translate3d(100px, 0, 0);
+		}
+	</style>
 
 </head>
 <body ng-app="app">
 	<div ng-controller="appController">
 		
 		<md-toolbar class="md-primary">
-			<h1 class="md-toolbar-tools">Join the conversation(s)</h1>
+			<h1 class="md-toolbar-tools">
+				<span ng-show="!userReady"> Join the conversation(s)</span>
+				<span ng-show="userReady"> Hello, {{user.name}}</span>
+			</h1>
 		</md-toolbar>
 
 		<div layout="row" flex layout-align="center center">
 			<!-- Angular View -->
 			<div layout="column">
-
-				<md-content layout-padding >
+				<md-content layout-padding ng-show="!userReady">
 					<form name="userForm" ng-submit="enterChat()" >
 						<div layout="column" flex>
 							<div flex>
 								<md-input-container>
 									<label>Full name</label>
-									<input ng-model="user.name">
+									<input required ng-model="user.name">
 								</md-input-container>
 							</div>
 							<div flex layout="row">
@@ -36,8 +56,8 @@
 						</div>
 					</form>
 				</md-content>
-		</div>
-
+			</div>
+			
 		</div>
 	</div>
 	
