@@ -4,23 +4,51 @@
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+
 </head>
 <body ng-app="app">
 	<div ng-controller="appController">
-
-		<div layout="row" flex>
-			<!-- Angular View -->
-		</div>
 		
-		<script src="/bower_components/angular/angular.min.js"></script>
-		<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<md-toolbar class="md-primary">
+			<h1 class="md-toolbar-tools">Join the conversation(s)</h1>
+		</md-toolbar>
 
-		<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-		<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-		<script src="/bower_components/angular-material/angular-material.min.js"></script>
-		<!-- <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
+		<div layout="row" flex layout-align="center center">
+			<!-- Angular View -->
+			<div layout="column">
 
-		<script src="/js/build/bundle.js"></script>
+				<md-content layout-padding >
+					<form name="userForm" ng-submit="enterChat()" >
+						<div layout="column" flex>
+							<div flex>
+								<md-input-container>
+									<label>Full name</label>
+									<input ng-model="user.name">
+								</md-input-container>
+							</div>
+							<div flex layout="row">
+								<md-input-container>
+									<label>Channel</label>
+									<input ng-model="channel">
+								</md-input-container>
+								<md-button class=" md-fab md-accent ">Enter</md-button>
+							</div>
+						</div>
+					</form>
+				</md-content>
+		</div>
+
+		</div>
 	</div>
+	
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="/bower_components/angular-material/angular-material.min.js"></script>
+	<!-- <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
+
+	<script src="/js/build/bundle.js"></script>
 </body>
 </html>
