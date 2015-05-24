@@ -11,12 +11,12 @@ module.exports = function(grunt){
 					watch: true
 				},
 				files: {
-					'./public/js/build/bundle.js': ['public/jssrc/**/*.js']
+					'./public/js/build/bundle.js': ['public/js/src/**/*.js']
 				}
 			},
 			dist: {
 				files: {
-					'./public/js/build/bundle.js': ['public/jssrc/**/*.js']
+					'./public/js/build/bundle.js': ['public/js/src/**/*.js']
 				}
 			}
 		}

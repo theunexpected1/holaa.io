@@ -13,7 +13,8 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
-    "angular-material": "~0.9.4"
+  "dependencies": {
+    "angular-material": "~0.9.4",
+    "angular-ui-router": "~0.2.15"
   }
 }

@@ -5,9 +5,22 @@
 	<title>Hello socket world</title>
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
 </head>
-<body>
-	Hello world
-	<script src="bower_components/angular/angular.min.js"></script>
-	<script src="bower_components/angular-material/angular-material.min.js"></script>
+<body ng-app="app">
+	<div ng-controller="appController">
+
+		<div layout="row" flex>
+			<!-- Angular View -->
+		</div>
+		
+		<script src="/bower_components/angular/angular.min.js"></script>
+		<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+		<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+		<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="/bower_components/angular-material/angular-material.min.js"></script>
+		<!-- <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
+
+		<script src="/js/build/bundle.js"></script>
+	</div>
 </body>
 </html>
