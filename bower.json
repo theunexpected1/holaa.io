@@ -1,0 +1,19 @@
+{
+  "name": "interactive",
+  "version": "0.0.1",
+  "homepage": "https://github.com/theunexpected1/interactive",
+  "authors": [
+    "Rahul Vagadiya <rahul.vagadiya@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-material": "~0.9.4"
+  }
+}
