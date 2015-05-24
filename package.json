@@ -4,7 +4,9 @@
   "description": "Interactive - play with sockets",
   "main": "index.js",
   "scripts": {
-    "test": "git status"
+    "test": "git status",
+    "postinstall": "./node_modules/bower/bin/bower install && grunt browserify:dist",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,13 @@
   "homepage": "https://github.com/theunexpected1/interactive",
   "dependencies": {
     "express": "^4.12.4",
-    "socket.io": "^1.3.5"
+    "socket.io": "^1.3.5",
+    "bower": "^1.3.12"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.8.0",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-less": "^1.0.0"
   }
 }
