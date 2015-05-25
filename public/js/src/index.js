@@ -4,7 +4,7 @@ var app = angular.module('app', ['ngMaterial', 'ngAnimate'])
 	.config( function($mdThemingProvider){
 		$mdThemingProvider.theme('default')
 			.primaryPalette('pink')
-			.accentPalette('yellow')
+			.accentPalette('blue')
 	})
 	.controller('appController', [
 		'$scope',
@@ -12,7 +12,18 @@ var app = angular.module('app', ['ngMaterial', 'ngAnimate'])
 			var defaultChannelName = '#general';
 			$scope.channel = defaultChannelName;
 			$scope.user = {};
-			$scope.userReadyToChat = false;
+			$scope.userReadyToChat = true;
+			$scope.messages = [
+				{
+					message: 'Hey there!',
+					fullName: 'Riten'
+				},
+				{
+					message: 'Hiiiiii!',
+					fullName: 'Sumita'
+				}
+			]
+
 			$scope.$watch('channel', function(value){
 				$scope.channel = $scope.fixChannelName(value, false);
 			});
@@ -25,8 +36,12 @@ var app = angular.module('app', ['ngMaterial', 'ngAnimate'])
 				return value;
 			};
 
-			$scope.enterChat = function(){
+			$scope.login = function(){
 				$scope.userReadyToChat = true;
+			};
+
+			$scope.submitMessage = function(){
+
 			};
 		}
 	]);
