@@ -1,0 +1,30 @@
+
+.main-content{
+	height: 100%;
+}
+
+.fade{
+	opacity: 1;
+	transition-duration: 0.2s;
+	transition-property: all;
+}
+.fade.ng-hide{
+	opacity: 0;
+}
+
+.ng-enter {
+  transition: all linear 500ms;
+  opacity: 0;
+}
+.ng-enter-active {
+  opacity: 1;
+}
+.ng-leave {
+  transition: all linear 500ms;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.ng-leave-active {
+  opacity: 0;
+  transform: translate3d(100px, 0, 0);
+}
