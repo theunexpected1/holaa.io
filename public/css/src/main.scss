@@ -1,10 +1,13 @@
 $primaryColor: #E91E63;
 $accentColor: #448AFF;
 
+/** General */
 .main-content{
 	height: 100%;
 }
+
 /** Effects */
+
 .fade{
 	opacity: 1;
 	transition-duration: 0.2s;
@@ -37,10 +40,20 @@ $accentColor: #448AFF;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 60px;
-	margin: 0 0 10px 10px;
+	height: 30px;
+	margin: 0 20px 20px;
+
 	md-input-container{
 		padding: 0;
+		.md-input{
+			min-height: 26px;
+		}
+	}
+	.md-button{
+		margin-right: 0;
+		margin-top: 0;
+		min-height: 30px;
+		line-height: 30px;
 	}
 }
 

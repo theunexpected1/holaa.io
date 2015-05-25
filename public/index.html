@@ -11,13 +11,12 @@
 	<div ng-controller="appController" layout="column" class="main-content">
 		
 		<md-toolbar class="md-primary" layout="row">
-			
 			<h1 class="md-toolbar-tools" flex>
 				<span ng-show="!userReadyToChat"> Join the conversation</span>
 				<span ng-show="userReadyToChat"> {{channel}}</span>
 			</h1>
 			<div flex></div>
-			<h1 class="md-toolbar-tools" flex="10">
+			<h1 class="md-toolbar-tools" flex="10" flex-sm="30">
 				<span ng-show="userReadyToChat"> {{user.fullName}}</span>
 			</h1>
 		</md-toolbar>
@@ -59,7 +58,7 @@
 			</div>
 			<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
 				<md-input-container flex md-no-float>
-					<textarea required placeholder="Write message. ⌘+Enter to send." ng-model="message" rows="2"></textarea>
+					<input type="text" required placeholder="Write message. ⌘+Enter to send." ng-model="message">
 				</md-input-container>
 				<md-button class="md-raised md-accent ">Enter</md-button>
 			</form>
