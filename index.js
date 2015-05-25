@@ -3,28 +3,25 @@ var express = require('express'),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	port = 8080,
+	users = [],
 	server;
 	
 	server = http.listen(port);
- 	console.log('listening to server on http://localhost:' + port);
+	console.log('listening to server on http://localhost:' + port);
 
  	app.use(express.static('public'));
- 	
+
  	app.get('/', function(req, res){
- 		console.log('hello');
  		res.sendFile(__dirname + '/public/views/index.html');
  	});
 
  	io.on('connection', function(socket){
- 		console.log('connected!');
- 		socket.on('info', function(data){
- 			console.log('received data:');
- 			console.log(data);
+ 		console.log('socket:connected!');
+
+ 		socket.on('login', function(user){
+ 			console.log('socket:login');
+ 			users.push(user);
+ 			io.sockets.emit('login', users);
  		});
- 		setInterval(function(){
- 			socket.emit('info', {
- 				test: 'data'
- 			});
- 			console.log('here');
- 		}, 1000);
+ 		
  	});
