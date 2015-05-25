@@ -4,40 +4,23 @@
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
-	<style type="text/css">
-		.ng-enter {
-		  transition: all linear 500ms;
-		  opacity: 0;
-		}
-		.ng-enter-active {
-		  opacity: 1;
-		}
-		.ng-leave {
-		  transition: all linear 500ms;
-		  opacity: 1;
-		  transform: translate3d(0, 0, 0);
-		}
-		.ng-leave-active {
-		  opacity: 0;
-		  transform: translate3d(100px, 0, 0);
-		}
-	</style>
-
+	<link href="/css/build/main.css" rel="stylesheet">
 </head>
 <body ng-app="app">
-	<div ng-controller="appController">
+
+	<div ng-controller="appController" layout="column" class="main-content">
 		
 		<md-toolbar class="md-primary">
 			<h1 class="md-toolbar-tools">
-				<span ng-show="!userReady"> Join the conversation(s)</span>
-				<span ng-show="userReady"> Hello, {{user.name}}</span>
+				<span ng-show="!userReadyToChat"> Join the conversation(s)</span>
+				<span ng-show="userReadyToChat"> Hello, {{user.name}}</span>
 			</h1>
 		</md-toolbar>
 
-		<div layout="row" flex layout-align="center center">
+		<div layout="column" flex layout-align="center center">
 			<!-- Angular View -->
-			<div layout="column">
-				<md-content layout-padding ng-show="!userReady">
+			<div layout="column" layout-align="center" ng-show="!userReadyToChat">
+				<md-content layout-padding layout-align="center">
 					<form name="userForm" ng-submit="enterChat()" >
 						<div layout="column" flex>
 							<div flex>
@@ -57,8 +40,29 @@
 					</form>
 				</md-content>
 			</div>
-			
+
+			<div layout="column" layout-align="center" ng-show="userReadyToChat">
+				<md-content layout-padding class="fade">
+					<form name="chat" ng-submit="sendMessage()" >
+						<div layout="column" flex>
+							<div class="chat-messages">
+								<p ng-repeat="message in messages">
+									{{message.text}}
+								</p>
+							</div>
+							<div flex layout="row">
+								<md-input-container>
+									<label>Message</label>
+									<input ng-model="channel">
+								</md-input-container>
+								<md-button class=" md-fab md-accent ">Enter</md-button>
+							</div>
+						</div>
+					</form>
+				</md-content>
+			</div>
 		</div>
+
 	</div>
 	
 	<script src="/bower_components/angular/angular.min.js"></script>
@@ -69,6 +73,6 @@
 	<script src="/bower_components/angular-material/angular-material.min.js"></script>
 	<!-- <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
 
-	<script src="/js/build/bundle.js"></script>
+	<script src="/js/build/main.js"></script>
 </body>
 </html>

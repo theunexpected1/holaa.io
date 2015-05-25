@@ -11,13 +11,14 @@ var app = angular.module('app', ['ngMaterial', 'ngAnimate'])
 		function($scope){
 			$scope.channel = '#general';
 			$scope.user = {};
-			$scope.userReady = false;
+			$scope.userReadyToChat = false;
 			$scope.$watch('channel', function(value){
 				$scope.channel = value.indexOf('#') == 0 ? value : '#' + value;
 			});
 
 			$scope.enterChat = function(){
-				$scope.userReady = true;
+				$scope.userReadyToChat = true;
 			};
 		}
 	]);
+	
