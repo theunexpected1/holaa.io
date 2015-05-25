@@ -1,0 +1,51 @@
+$primaryColor: #E91E63;
+$accentColor: #448AFF;
+
+.main-content{
+	height: 100%;
+}
+/** Effects */
+.fade{
+	opacity: 1;
+	transition-duration: 0.2s;
+	transition-property: all;
+}
+.fade.ng-hide{
+	opacity: 0;
+}
+
+.ng-enter {
+	transition: all linear 500ms;
+	opacity: 0;
+}
+.ng-enter-active {
+	opacity: 1;
+}
+.ng-leave {
+	transition: all linear 500ms;
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+}
+.ng-leave-active {
+	opacity: 0;
+	transform: translate3d(100px, 0, 0);
+}
+
+/** Chat area */
+.chat-input-container{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	margin: 0 0 10px 10px;
+	md-input-container{
+		padding: 0;
+	}
+}
+
+.message-block{
+	.author{
+		color: $accentColor;
+	}
+}

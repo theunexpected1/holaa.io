@@ -4,10 +4,77 @@
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+	<link href="/css/build/main.css" rel="stylesheet">
 </head>
-<body>
-	Hello world
-	<script src="bower_components/angular/angular.min.js"></script>
-	<script src="bower_components/angular-material/angular-material.min.js"></script>
+<body ng-app="app">
+
+	<div ng-controller="appController" layout="column" class="main-content">
+		
+		<md-toolbar class="md-primary" layout="row">
+			
+			<h1 class="md-toolbar-tools" flex>
+				<span ng-show="!userReadyToChat"> Join the conversation</span>
+				<span ng-show="userReadyToChat"> {{channel}}</span>
+			</h1>
+			<div flex></div>
+			<h1 class="md-toolbar-tools" flex="10">
+				<span ng-show="userReadyToChat"> {{user.fullName}}</span>
+			</h1>
+		</md-toolbar>
+
+		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat">
+			<div layout="column" layout-align="center">
+				<md-content layout-padding layout-align="center">
+					<h3> Start a conversation with the world </h3>
+					<form name="userForm" ng-submit="login()" >
+						<div layout="column" flex>
+							<div flex>
+								<md-input-container>
+									<label>Full name</label>
+									<input required ng-model="user.fullName">
+								</md-input-container>
+							</div>
+							<div flex layout="row">
+								<md-input-container flex>
+									<label>Channel</label>
+									<input ng-model="channel" ng-blur="fixChannelName(channel, true)">
+								</md-input-container>
+								<md-button class=" md-fab md-accent ">Enter</md-button>
+							</div>
+						</div>
+					</form>
+				</md-content>
+			</div>
+		</div>
+
+		<div layout="column" flex ng-show="userReadyToChat"  layout-align="space-between start">
+			<div layout="column" layout-padding class="fade">
+				<div class="message-block" ng-repeat="message in messages" flex layout="column">
+					<a flex class="author">{{message.fullName}}</a>
+					<div flex class="message-container">
+						{{message.message}}
+					</div>
+				</div>
+			</div>
+			<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
+				<md-input-container flex md-no-float>
+					<textarea required placeholder="Write message. ⌘+Enter to send." ng-model="message" rows="2"></textarea>
+				</md-input-container>
+				<md-button class="md-raised md-accent ">Enter</md-button>
+			</form>
+		</div>
+
+	</div>
+
+	
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="/bower_components/angular-material/angular-material.min.js"></script>
+	<!-- <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
+
+	<script src="/js/build/main.js"></script>
 </body>
 </html>
