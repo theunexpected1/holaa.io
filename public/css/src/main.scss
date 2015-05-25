@@ -5,9 +5,11 @@ $accentColor: #448AFF;
 .main-content{
 	height: 100%;
 }
+h5{
+	margin: 0;
+}
 
 /** Effects */
-
 .fade{
 	opacity: 1;
 	transition-duration: 0.2s;
