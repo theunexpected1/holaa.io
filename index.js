@@ -3,12 +3,14 @@ var express = require('express'),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	_ = require('lodash'),
+	bunyan = require('bunyan'),
 	port = 8080,
 	users = [],
-	server;
+	server,
+	log = bunyan.createLogger({name: 'interactive'});
 	
 	server = http.listen(port);
-	console.log('listening to server on http://localhost:' + port);
+	log.info('listening to server on http://localhost:' + port);
 
  	app.use(express.static('public'));
 
@@ -17,10 +19,10 @@ var express = require('express'),
  	});
 
  	io.on('connection', function(socket){
- 		console.log('socket:connected!');
+ 		log.info('socket:connected!');
 
 		socket.on('login', function(user){
-			console.log('socket:login');
+			log.info('socket:login');
 			users.push(user);
 			socket.userDetails = user;
 			io.sockets.emit('login', {
@@ -28,16 +30,15 @@ var express = require('express'),
 				user: user,
 				users: users
 			});
-			console.log(socket);
 		});
 
 		socket.on('message', function(json){
-			console.log('socket:message');
+			log.info('socket:message');
 			io.sockets.emit('message', json);
 		});
 
 		socket.on('disconnect', function(){
-			console.log('socket:disconnect');
+			log.info('socket:disconnect');
 			io.sockets.emit('userLeft', socket.userDetails);
 			_.remove(users, socket.userDetails);
 		})
