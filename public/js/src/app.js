@@ -28,6 +28,7 @@ angular.module('app', [
 				$scope.usersNames = _.pluck($scope.users, 'name').join(', ');
 			});
 			/*
+			Message format:
 			{
 				message: 'hey whats up',
 				fullName: 'Rahul Vagadiya',
@@ -101,15 +102,13 @@ angular.module('app', [
 				socket.conn.on('userLeft', function(json){
 					console.log('socket:userLeft');
 					console.log(json);
-					if(json.channel == $scope.channel){
-						$scope.$apply(function(){
-							$scope.messages.push({
-								message: json.fullName + ' has left this channel!',
-								fullName: 'admin',
-								type: 'bot'
-							});
+					$scope.$apply(function(){
+						$scope.messages.push({
+							message: json.fullName + ' has left this channel!',
+							fullName: 'admin',
+							type: 'bot'
 						});
-					}
+					});
 				});
 
 				// Message popped in
@@ -128,7 +127,7 @@ angular.module('app', [
 
 				// Let them know I am here
 				socket.conn.emit('login', {
-					fullName: $scope.user.fullName,
+					user: $scope.user,
 					channel: $scope.channel
 				});
 
