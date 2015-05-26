@@ -24,6 +24,10 @@ var express = require('express'),
  		// Login listener
 		socket.on('login', function(json){
 			log.info('socket:login');
+			
+			// Ensure '#' prepend before channel name
+			json.channel = json.channel.indexOf('#') == 0 ? json.channel : '#' + json.channel;
+
 			// Add to room
 			socket.join(json.channel);
 			socket.userDetails = json.user;
