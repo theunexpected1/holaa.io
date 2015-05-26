@@ -21,13 +21,19 @@ var express = require('express'),
  	io.on('connection', function(socket){
  		log.info('socket:connected!');
 
+ 		// Login listener
 		socket.on('login', function(json){
 			log.info('socket:login');
+			// Add to room
 			socket.join(json.channel);
 			socket.userDetails = json.user;
 			socket.channel = json.channel;
+
+			// Add user to users list
 			users[json.channel] = users[json.channel] || [];
 			users[json.channel].push(json.user);
+
+			// Broadcast new user
 			io.to(socket.channel).emit('login', {
 				message: 'New user has joined',
 				channel: json.channel,
@@ -36,14 +42,16 @@ var express = require('express'),
 			});
 		});
 
+ 		// Incoming message listener
 		socket.on('message', function(json){
 			log.info('socket:message');
 			io.to(socket.channel).emit('message', json);
 		});
 
+ 		// Disconnect listener
 		socket.on('disconnect', function(){
 			log.info('socket:disconnect');
 			io.to(socket.channel).emit('userLeft', socket.userDetails);
-			_.remove(users, socket.userDetails);
+			_.remove(users[socket.channel], socket.userDetails);
 		})
  	});
