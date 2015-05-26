@@ -89,22 +89,14 @@ angular.module('app', [
 					});
 				});
 
-				// Current user logs out
-				socket.conn.on('disconnect', function(json){
-					$scope.channel = defaultChannelName;
-					$scope.user = $scope.users = {};
-					$scope.usersNames = "";
-					$scope.userReadyToChat = false;
-					$scope.messages = [];
-				});
-
 				// On users leaving chat
-				socket.conn.on('userLeft', function(json){
+				socket.conn.on('userLeft', function(user){
 					console.log('socket:userLeft');
-					console.log(json);
+					console.log(user);
 					$scope.$apply(function(){
+						_.remove($scope.users, user);
 						$scope.messages.push({
-							message: json.fullName + ' has left this channel!',
+							message: user.fullName + ' has left this channel!',
 							fullName: 'admin',
 							type: 'bot'
 						});
