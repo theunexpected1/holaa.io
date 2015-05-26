@@ -40,7 +40,7 @@
 							<div flex layout="row">
 								<md-input-container flex>
 									<label>Channel</label>
-									<input ng-model="channel" ng-blur="fixChannelName(channel, true)">
+									<input ng-model="channel" ng-blur="fixChannelName(channel, true)" ng-keyup="fixChannelName(channel, false)">
 								</md-input-container>
 								<md-button class=" md-fab md-accent ">Enter</md-button>
 							</div>
