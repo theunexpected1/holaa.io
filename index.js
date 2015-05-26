@@ -3,12 +3,14 @@ var express = require('express'),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	_ = require('lodash'),
-	port = 8080,
-	users = [],
-	server;
+	bunyan = require('bunyan'),
+	port = process.env.PORT || 8080,
+	users = {},
+	server,
+	log = bunyan.createLogger({name: 'interactive'});
 	
 	server = http.listen(port);
-	console.log('listening to server on http://localhost:' + port);
+	log.info('listening to server on http://localhost:' + port);
 
  	app.use(express.static('public'));
 
@@ -17,28 +19,31 @@ var express = require('express'),
  	});
 
  	io.on('connection', function(socket){
- 		console.log('socket:connected!');
+ 		log.info('socket:connected!');
 
-		socket.on('login', function(user){
-			console.log('socket:login');
-			users.push(user);
-			socket.userDetails = user;
-			io.sockets.emit('login', {
+		socket.on('login', function(json){
+			log.info('socket:login');
+			socket.join(json.channel);
+			socket.userDetails = json.user;
+			socket.channel = json.channel;
+			users[json.channel] = users[json.channel] || [];
+			users[json.channel].push(json.user);
+			io.to(socket.channel).emit('login', {
 				message: 'New user has joined',
-				user: user,
-				users: users
+				channel: json.channel,
+				user: json.user,
+				users: users[json.channel]
 			});
-			console.log(socket);
 		});
 
 		socket.on('message', function(json){
-			console.log('socket:message');
-			io.sockets.emit('message', json);
+			log.info('socket:message');
+			io.to(socket.channel).emit('message', json);
 		});
 
 		socket.on('disconnect', function(){
-			console.log('socket:disconnect');
-			io.sockets.emit('userLeft', socket.userDetails);
+			log.info('socket:disconnect');
+			io.to(socket.channel).emit('userLeft', socket.userDetails);
 			_.remove(users, socket.userDetails);
 		})
  	});
