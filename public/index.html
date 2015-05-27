@@ -54,7 +54,7 @@
 				<div flex class="fade chat-message-container">
 					<div class="message-block" ng-repeat="message in messages" flex layout="column">
 						<div ng-if="message.type=='user'">
-							<a flex class="author" style="color: {{message.user.color}}">{{message.user.fullName}}</a>
+							<a flex class="author" style="color: {{message.user.color}}">{{message.user.fullName}} <i class="timestamp">{{message.timestamp | date:'h:mma'}}</i></a>
 							<div flex class="message-container">
 								{{message.message}}
 							</div>
