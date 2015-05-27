@@ -27,8 +27,7 @@ h5{
 /** Effects */
 .fade{
 	opacity: 1;
-	transition-duration: $transitionDuration;
-	transition-property: all;
+	@include transition(all $transitionDuration);
 }
 .fade.ng-hide{
 	opacity: 0;
