@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "git status",
-    "postinstall": "bower install",
+    "postinstall": "bower install --allow-root",
     "start": "node index"
   },
   "repository": {
