@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "git status",
-    "postinstall": "bower install && grunt dist",
+    "postinstall": "bower install",
     "start": "node index"
   },
   "repository": {
