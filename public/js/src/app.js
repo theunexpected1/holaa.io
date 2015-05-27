@@ -22,7 +22,8 @@ angular.module('app', [
 			var defaultChannelName = '#general';
 
 			$scope.channel = defaultChannelName;
-			$scope.user = $scope.users = {};
+			$scope.user = {};
+			$scope.users = [];
 			$scope.usersNames = "";
 			$scope.userReadyToChat = false;
 			$scope.messages = [];
