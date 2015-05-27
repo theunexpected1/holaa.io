@@ -49,6 +49,7 @@ var express = require('express'),
  		// Incoming message listener
 		socket.on('message', function(json){
 			log.info('socket:message');
+			json.timestamp = Date.now();
 			io.to(socket.channel).emit('message', json);
 		});
 

@@ -132,6 +132,7 @@ angular.module('app', [
 							$scope.messages.push({
 								message: json.message,
 								user: json.user,
+								timestamp: json.timestamp,
 								type: 'user'
 							});
 						});
