@@ -8,14 +8,17 @@ angular.module('app', [
 	])
 	.config( function($mdThemingProvider){
 		$mdThemingProvider.theme('default')
-			.primaryPalette('pink')
-			.accentPalette('blue')
+			// .primaryPalette('pink')
+			// .accentPalette('blue')
 	})
 
 	.controller('appController', [
 		'$scope',
+		'$mdSidenav',
+		'$sce',
 		'socket',
-		function($scope, socket){
+		'colors',
+		function($scope, $mdSidenav, $sce, socket, colors){
 			var defaultChannelName = '#general';
 
 			$scope.channel = defaultChannelName;
@@ -25,26 +28,32 @@ angular.module('app', [
 			$scope.messages = [];
 
 			$scope.$watch('users', function(value){
-				$scope.usersNames = _.pluck($scope.users, 'name').join(', ');
+				$scope.usersNames = _.pluck($scope.users, 'fullName').join(', ');
 			});
 			/*
 			Message format:
 			{
 				message: 'hey whats up',
-				fullName: 'Rahul Vagadiya',
+				user: {fullName: 'Rahul Vagadiya', color: '#f0f0f0'},
 				type: 'user'
 			},
 			{
 				message: 'Rahul Vagadiya just joined',
-				fullName: 'admin',
+				user: {fullName: 'admin', color: 'black'},
 				type: 'bot'
 			}
-			 */
+			*/
 
 			$scope.$watch('channel', function(value){
 				$scope.channel = $scope.fixChannelName(value, false);
 			});
 
+			/**
+			 * Ensures channel names follow formatting
+			 * @param  {String} value         Channel name
+			 * @param  {Boolean} checkForEmpty Should the method check if channel name is passed in as empty or not
+			 * @return {String}               Formatted channel name
+			 */
 			$scope.fixChannelName = function(value, checkForEmpty){
 				if(checkForEmpty && (!value || value === '' || value === '#')){
 					value = defaultChannelName;
@@ -53,15 +62,25 @@ angular.module('app', [
 				return value;
 			};
 
+			/**
+			 * Login to a specific channel
+			 * @return {[type]} [description]
+			 */
 			$scope.login = function(){
+				// Give the user's name a unique color
+				$scope.user.color = colors.randomizeFromConfig();
 				$scope.userReadyToChat = true;
 				$scope.initializeConnection();
 			};
 
+			/**
+			 * Send a message from client
+			 * @return {[type]} [description]
+			 */
 			$scope.submitMessage = function(){
 				if(socket.isConnected()){
 					socket.conn.emit('message', {
-						fullName: $scope.user.fullName,
+						user: $scope.user,
 						channel: $scope.channel,
 						message: $scope.message
 					});
@@ -69,21 +88,23 @@ angular.module('app', [
 				}
 			};
 
+			$scope.toggleChannelInformation = function(){
+				$mdSidenav('active-users').toggle();
+			}
+
 			$scope.initializeConnection = function(){
+				// Connect to the socket
 				socket.connect();
 				
 				// Enable listeners
 				// Login happened
 				socket.conn.on('login', function(json){
 					console.log('socket:login');
-					console.log(json);
-					console.log(json.users.length + ' users online');
-					console.log(json.users);
 					$scope.users = json.users;
 					$scope.$apply(function(){
 						$scope.messages.push({
-							message: json.user.fullName + ' has joined ' + $scope.channel,
-							fullName: 'admin',
+							message: '<span style="color:' + json.user.color + '">' + json.user.fullName + '</span> has joined ' + $scope.channel,
+							user: {name: 'admin', color: 'black'},
 							type: 'bot'
 						});
 					});
@@ -97,7 +118,7 @@ angular.module('app', [
 						_.remove($scope.users, user);
 						$scope.messages.push({
 							message: user.fullName + ' has left this channel!',
-							fullName: 'admin',
+							user: {name: 'admin', color: 'black'},
 							type: 'bot'
 						});
 					});
@@ -110,13 +131,14 @@ angular.module('app', [
 						$scope.$apply(function(){
 							$scope.messages.push({
 								message: json.message,
-								fullName: json.fullName,
+								user: json.user,
 								type: 'user'
 							});
 						});
 					}
 				});
 
+				// Send initial message
 				// Let them know I am here
 				socket.conn.emit('login', {
 					user: $scope.user,

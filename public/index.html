@@ -3,26 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
 	<link href="/css/build/main.css" rel="stylesheet">
 </head>
 <body ng-app="app">
 
 	<div ng-controller="appController" layout="column" class="main-content">
-		
-		<md-toolbar class="md-primary" layout="row">
+		<md-toolbar class="md-primary" layout="row" layout-wrap>
 			<h1 class="md-toolbar-tools" flex>
 				<span ng-show="!userReadyToChat"> Join the conversation</span>
 				<span ng-show="userReadyToChat"> {{channel}} </span>
-				<span ng-show="userReadyToChat && users.length > 1"> 
-					<md-tooltip>Online users: {{userNames}}</md-tooltip>
-					( {{users.length}} ) 
-				</span>
 			</h1>
 			<div flex></div>
-			<h1 class="md-toolbar-tools" flex="10" flex-sm="30">
-				<span ng-show="userReadyToChat"> {{user.fullName}}</span>
-			</h1>
+
+			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1">
+				<span class="entypo-user"></span> {{users.length}}
+			</md-button>
+			</h5>
 		</md-toolbar>
 
 		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat">
@@ -49,28 +47,44 @@
 				</md-content>
 			</div>
 		</div>
+	
 
-		<div layout="column" flex ng-show="userReadyToChat"  layout-align="space-between start">
-			<div layout="column" layout-padding class="fade">
-				<h5 flex ng-show="users.length == 1"> There is nobody apart from you in this channel</h5>
-				<div flex class="message-block" ng-repeat="message in messages" flex layout="column">
-					<div ng-show="message.type=='user'">
-						<a flex class="author">{{message.fullName}}</a>
-						<div flex class="message-container">
-							{{message.message}}
+		<div class="chat-room-container" layout="row" flex ng-show="userReadyToChat" >
+			<div layout="column" flex class="chat-room" flex layout-align="space-between start">
+				<div flex class="fade chat-message-container">
+					<div class="message-block" ng-repeat="message in messages" flex layout="column">
+						<div ng-if="message.type=='user'">
+							<a flex class="author" style="color: {{message.user.color}}">{{message.user.fullName}}</a>
+							<div flex class="message-container">
+								{{message.message}}
+							</div>
+						</div>
+						<div ng-if="message.type=='bot'">
+							<h5 ng-bind-html="message.message | basicHtmlFilter"></h5>
 						</div>
 					</div>
-					<div ng-show="message.type=='bot'">
-						<h5>{{message.message}}</h5>
-					</div>
+					<h5 class="message-block user-alone" ng-show="users.length == 1"> There is nobody apart from you in this channel</h5>
 				</div>
+				<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
+					<h5 class="author" ng-attr-title="{{user.fullName}}">
+						{{user.fullName.length >= 10 ? user.fullName.substr(0, 10) + '...' : user.fullName}}:
+					</h5>
+					<md-input-container flex md-no-float>
+						<input type="text" required placeholder="Write a message. Press Enter to send." ng-model="message">
+					</md-input-container>
+					<md-button class="md-raised md-accent ">Enter</md-button>
+				</form>
 			</div>
-			<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
-				<md-input-container flex md-no-float>
-					<input type="text" required placeholder="Write message. ⌘+Enter to send." ng-model="message">
-				</md-input-container>
-				<md-button class="md-raised md-accent ">Enter</md-button>
-			</form>
+
+			<md-sidenav flex class="md-sidenav-right md-whiteframe-z3" md-is-locked-open="$media('gt-sm')" ng-show="userReadyToChat && users.length > 1" md-component-id="active-users">
+				<md-content layout-padding>
+					<h1 layout-padding> Online users ({{users.length}})</h1>
+					<ul layout-padding>
+						<li ng-repeat="user in users"> <span class="entypo-right-open"></span><span style="color: {{user.color}}">{{user.fullName}}</span></li>
+					</ul>
+				</md-content>
+			</md-sidenav>
+
 		</div>
 
 	</div>

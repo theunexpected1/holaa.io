@@ -1,4 +1,8 @@
 language: node_js
+
+before_install:
+ - npm install -g bower
+
 node_js:
   - "0.12"
   - "0.11"

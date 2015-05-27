@@ -1,6 +1,17 @@
 $primaryColor: #E91E63;
 $accentColor: #448AFF;
 
+$transitionDuration: 0.15s;
+
+@mixin transition($all) {
+  -webkit-transition: $all;
+     -moz-transition: $all;
+      -ms-transition: $all;
+          transition: $all;
+}
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
 /** General */
 .main-content{
 	height: 100%;
@@ -8,26 +19,29 @@ $accentColor: #448AFF;
 h5{
 	margin: 0;
 }
+/* entypo - custom font */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
 
 /** Effects */
 .fade{
 	opacity: 1;
-	transition-duration: 0.2s;
-	transition-property: all;
+	@include transition(all $transitionDuration);
 }
 .fade.ng-hide{
 	opacity: 0;
 }
 
 .ng-enter {
-	transition: all linear 500ms;
+	transition: all linear $transitionDuration;
 	opacity: 0;
 }
 .ng-enter-active {
 	opacity: 1;
 }
 .ng-leave {
-	transition: all linear 500ms;
+	transition: all linear $transitionDuration;
 	opacity: 1;
 	transform: translate3d(0, 0, 0);
 }
@@ -37,13 +51,40 @@ h5{
 }
 
 /** Chat area */
+.chat-message-container{
+	margin-bottom: 67px;
+	width: 100%;
+	overflow: auto;
+	padding: 10px;
+	.message-block{
+		padding: 5px;
+	}
+	.user-alone{
+		color: $accentColor;
+	}
+}
+.chat-room{
+	position: relative;
+}
+
 .chat-input-container{
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 30px;
-	margin: 0 20px 20px;
+	height: 35px;
+	// margin: 0 20px 20px;
+	margin-bottom: 30px;
+	padding: 15px 20px 0;
+	box-shadow: 0px -3px 3px -1px #EFEFEF;
+	
+	.author{
+		line-height: 30px;
+		padding: 0 10px;
+		background: #d9d9d9;
+		height: 30px;
+		margin-right: 10px;
+	}
 
 	md-input-container{
 		padding: 0;
@@ -51,6 +92,7 @@ h5{
 			min-height: 26px;
 		}
 	}
+
 	.md-button{
 		margin-right: 0;
 		margin-top: 0;
@@ -62,5 +104,30 @@ h5{
 .message-block{
 	.author{
 		color: $accentColor;
+		font-weight: bold;
+	}
+}
+
+md-sidenav{
+	background: #efefef;
+	md-content{
+		background: #efefef !important;
+		h1{
+			margin-bottom: 0;
+		}
+		ul{
+			padding: 0;
+			li{
+				padding: 3px 0;
+				cursor: default;
+				[class*="entypo-"]{
+					padding: 0 7px 0 0;
+					@include transition(all $transitionDuration);
+				}
+				&:hover [class*="entypo-"]{
+					padding-right: 5px;
+				}
+			}
+		}
 	}
 }
