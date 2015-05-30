@@ -6,7 +6,9 @@ angular.module('app.services', [])
 		var obj = {
 			conn: null,
 			connect: function(){
-				this.conn = window.io();
+				this.conn = window.io({
+					'forceNew': true
+				});
 			},
 			isConnected: function(){
 				return this.conn !== null;
