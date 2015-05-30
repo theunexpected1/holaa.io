@@ -10,16 +10,17 @@
 <body ng-app="app">
 
 	<div ng-controller="appController" layout="column" class="main-content">
-		<md-toolbar class="md-primary" layout="row" layout-wrap>
+		<md-toolbar class="md-primary app-toolbar" layout="row" layout-wrap>
 			<h1 class="md-toolbar-tools" flex>
 				<span ng-show="!userReadyToChat"> Join the conversation</span>
 				<span ng-show="userReadyToChat"> {{channel}} </span>
 			</h1>
 			<div flex></div>
-
-			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1">
+			
+			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1" class="action">
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
+			<md-button ng-show="userReadyToChat" class="action" ng-click="logout()"><span class="entypo-logout"></span></md-button>
 			</h5>
 		</md-toolbar>
 

@@ -19,14 +19,18 @@ angular.module('app', [
 		'socket',
 		'colors',
 		function($scope, $mdSidenav, $sce, socket, colors){
+			// Setup Initials
 			var defaultChannelName = '#general';
+			$scope.reset = function(){
+				$scope.channel = defaultChannelName;
+				$scope.user = {};
+				$scope.users = [];
+				$scope.usersNames = "";
+				$scope.userReadyToChat = false;
+				$scope.messages = [];
+			}
 
-			$scope.channel = defaultChannelName;
-			$scope.user = {};
-			$scope.users = [];
-			$scope.usersNames = "";
-			$scope.userReadyToChat = false;
-			$scope.messages = [];
+			$scope.reset();
 
 			$scope.$watch('users', function(value){
 				$scope.usersNames = _.pluck($scope.users, 'fullName').join(', ');
@@ -65,13 +69,22 @@ angular.module('app', [
 
 			/**
 			 * Login to a specific channel
-			 * @return {[type]} [description]
+			 * @return {null}
 			 */
 			$scope.login = function(){
 				// Give the user's name a unique color
 				$scope.user.color = colors.randomizeFromConfig();
 				$scope.userReadyToChat = true;
 				$scope.initializeConnection();
+			};
+
+			/**
+			 * Logout from channel
+			 * @return {null}
+			 */
+			$scope.logout = function(){
+				socket.conn.close();
+				$scope.reset();
 			};
 
 			/**

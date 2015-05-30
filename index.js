@@ -53,10 +53,15 @@ var express = require('express'),
 			io.to(socket.channel).emit('message', json);
 		});
 
+		socket.on('logout', function(){
+			socket.disconnect();
+		});
+
  		// Disconnect listener
 		socket.on('disconnect', function(){
 			log.info('socket:disconnect');
-			io.to(socket.channel).emit('userLeft', socket.userDetails);
+			// Let everyone, except the initiator, know that a user has left
+			socket.broadcast.to(socket.channel).emit('userLeft', socket.userDetails);
 			_.remove(users[socket.channel], socket.userDetails);
 		})
  	});

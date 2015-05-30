@@ -13,6 +13,12 @@ $transitionDuration: 0.15s;
 @import url(http://weloveiconfonts.com/api/?family=entypo);
 
 /** General */
+.app-toolbar{
+	.action{
+		font-size: 20px;
+	}
+}
+
 .main-content{
 	height: 100%;
 }
