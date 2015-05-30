@@ -153,6 +153,14 @@ angular.module('app', [
 					}
 				});
 
+				// Logout user on disconnection
+				socket.conn.on('disconnect', function(){
+					console.log('socket:disconnected');
+					$scope.$apply(function(){
+						$scope.logout();
+					});
+				});
+
 				// Send initial message
 				// Let them know I am here
 				socket.conn.emit('login', {
