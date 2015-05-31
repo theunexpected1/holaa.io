@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "git status",
-    "postinstall": "./node_modules/bower/bin/bower install --allow-root && ./node_modules/grunt-cli/bin/grunt dist",
+    "postinstall": "./node_modules/bower/bin/bower install --allow-root",
     "start": "node index"
   },
   "repository": {

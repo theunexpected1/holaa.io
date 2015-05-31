@@ -54,7 +54,7 @@ module.exports = function(grunt){
 				options: {
 					logConcurrentOutput: true
 				},
-				tasks: ['browserify:dist']
+				tasks: ['browserify:dist', 'sass:dist']
 			}
 		}
 
