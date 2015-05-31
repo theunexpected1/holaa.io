@@ -1,0 +1,111 @@
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+/** General */
+.app-toolbar .action {
+  font-size: 20px; }
+
+.main-content {
+  height: 100%; }
+
+h5 {
+  margin: 0; }
+
+/* entypo - custom font */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif; }
+
+/** Effects */
+.fade {
+  opacity: 1;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -ms-transition: all 0.15s;
+  transition: all 0.15s; }
+
+.fade.ng-hide {
+  opacity: 0; }
+
+.ng-enter {
+  transition: all linear 0.15s;
+  opacity: 0; }
+
+.ng-enter-active {
+  opacity: 1; }
+
+.ng-leave {
+  transition: all linear 0.15s;
+  opacity: 1;
+  transform: translate3d(0, 0, 0); }
+
+.ng-leave-active {
+  opacity: 0;
+  transform: translate3d(100px, 0, 0); }
+
+/** Chat area */
+.chat-message-container {
+  margin-bottom: 67px;
+  width: 100%;
+  overflow: auto;
+  padding: 10px; }
+  .chat-message-container .message-block {
+    padding: 5px; }
+  .chat-message-container .user-alone {
+    color: #448AFF; }
+
+.chat-room {
+  position: relative; }
+
+.chat-input-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35px;
+  margin-bottom: 30px;
+  padding: 15px 20px 0;
+  box-shadow: 0px -3px 3px -1px #EFEFEF; }
+  .chat-input-container .author {
+    line-height: 30px;
+    padding: 0 10px;
+    background: #d9d9d9;
+    height: 30px;
+    margin-right: 10px; }
+  .chat-input-container md-input-container {
+    padding: 0; }
+    .chat-input-container md-input-container .md-input {
+      min-height: 26px; }
+  .chat-input-container .md-button {
+    margin-right: 0;
+    margin-top: 0;
+    min-height: 30px;
+    line-height: 30px; }
+
+.message-block .author {
+  color: #448AFF;
+  font-weight: bold; }
+.message-block .timestamp {
+  font-size: 12px;
+  color: #cfcfcf;
+  font-style: normal;
+  padding-left: 5px; }
+
+md-sidenav {
+  background: #efefef; }
+  md-sidenav md-content {
+    background: #efefef !important; }
+    md-sidenav md-content h1 {
+      margin-bottom: 0; }
+    md-sidenav md-content ul {
+      padding: 0; }
+      md-sidenav md-content ul li {
+        padding: 3px 0;
+        cursor: default; }
+        md-sidenav md-content ul li [class*="entypo-"] {
+          padding: 0 7px 0 0;
+          -webkit-transition: all 0.15s;
+          -moz-transition: all 0.15s;
+          -ms-transition: all 0.15s;
+          transition: all 0.15s; }
+        md-sidenav md-content ul li:hover [class*="entypo-"] {
+          padding-right: 5px; }
+
+/*# sourceMappingURL=main.css.map */
