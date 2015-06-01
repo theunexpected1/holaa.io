@@ -85,7 +85,6 @@ angular.module('app', [
 			 */
 			$scope.logout = function(){
 				socket.conn.close();
-				$scope.reset();
 			};
 
 			/**
@@ -157,9 +156,13 @@ angular.module('app', [
 				// Logout user on disconnection
 				socket.conn.on('disconnect', function(){
 					console.log('socket:disconnected');
-					$scope.$apply(function(){
-						$scope.logout();
-					});
+					if ($scope.$$phase) {
+						$scope.reset();
+					} else{
+						$scope.$apply(function(){
+							$scope.reset();
+						});
+					}
 				});
 
 				// Send initial message
