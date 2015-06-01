@@ -77,7 +77,7 @@
 				</form>
 			</div>
 
-			<md-sidenav flex class="md-sidenav-right md-whiteframe-z3" md-is-locked-open="$media('gt-sm')" ng-show="userReadyToChat && users.length > 1" md-component-id="active-users">
+			<md-sidenav flex class="md-sidenav-right md-whiteframe-z3" md-is-locked-open="$mdMedia('gt-sm')" ng-show="userReadyToChat" md-component-id="active-users">
 				<md-content layout-padding>
 					<h1 layout-padding> Online users ({{users.length}})</h1>
 					<ul layout-padding>
