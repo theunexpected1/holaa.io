@@ -16,9 +16,11 @@ angular.module('app', [
 		'$scope',
 		'$mdSidenav',
 		'$sce',
+		'$location',
+		'$anchorScroll',
 		'socket',
 		'colors',
-		function($scope, $mdSidenav, $sce, socket, colors){
+		function($scope, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
 			// Setup Initials
 			var defaultChannelName = '#general';
 			$scope.reset = function(){
@@ -84,7 +86,6 @@ angular.module('app', [
 			 */
 			$scope.logout = function(){
 				socket.conn.close();
-				$scope.reset();
 			};
 
 			/**
@@ -104,6 +105,10 @@ angular.module('app', [
 
 			$scope.toggleChannelInformation = function(){
 				$mdSidenav('active-users').toggle();
+			}
+
+			$scope.scrollToBottom = function(){
+				$location.hash('bottom');
 			}
 
 			$scope.initializeConnection = function(){
@@ -149,6 +154,9 @@ angular.module('app', [
 								timestamp: json.timestamp,
 								type: 'user'
 							});
+							// Scroll to bottom on every message
+							$scope.scrollToBottom();
+					      	$anchorScroll();
 						});
 					}
 				});
@@ -156,9 +164,13 @@ angular.module('app', [
 				// Logout user on disconnection
 				socket.conn.on('disconnect', function(){
 					console.log('socket:disconnected');
-					$scope.$apply(function(){
-						$scope.logout();
-					});
+					if ($scope.$$phase) {
+						$scope.reset();
+					} else{
+						$scope.$apply(function(){
+							$scope.reset();
+						});
+					}
 				});
 
 				// Send initial message
