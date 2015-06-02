@@ -17,9 +17,11 @@ angular.module('app', [
 		'$scope',
 		'$mdSidenav',
 		'$sce',
+		'$location',
+		'$anchorScroll',
 		'socket',
 		'colors',
-		function($scope, $mdSidenav, $sce, socket, colors){
+		function($scope, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
 			// Setup Initials
 			var defaultChannelName = '#general';
 			$scope.reset = function(){
@@ -106,6 +108,10 @@ angular.module('app', [
 				$mdSidenav('active-users').toggle();
 			}
 
+			$scope.scrollToBottom = function(){
+				$location.hash('bottom');
+			}
+
 			$scope.initializeConnection = function(){
 				// Connect to the socket
 				socket.connect();
@@ -149,6 +155,9 @@ angular.module('app', [
 								timestamp: json.timestamp,
 								type: 'user'
 							});
+							// Scroll to bottom on every message
+							$scope.scrollToBottom();
+					      	$anchorScroll();
 						});
 					}
 				});

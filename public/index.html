@@ -52,7 +52,7 @@
 
 		<div class="chat-room-container" layout="row" flex ng-show="userReadyToChat" >
 			<div layout="column" flex class="chat-room" flex layout-align="space-between start">
-				<div flex class="fade chat-message-container">
+				<div flex class="fade chat-message-container" md-scroll-y>
 					<div class="message-block" ng-repeat="message in messages" flex layout="column">
 						<div ng-if="message.type=='user'">
 							<a flex class="author" style="color: {{message.user.color}}">{{message.user.fullName}} <i class="timestamp">{{message.timestamp | date:'h:mma'}}</i></a>
@@ -65,6 +65,7 @@
 						</div>
 					</div>
 					<h5 class="message-block user-alone" ng-show="users.length == 1"> There is nobody apart from you in this channel</h5>
+					<div id="bottom"></div>
 				</div>
 				<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
 					<h5 class="author" ng-attr-title="{{user.fullName}}">
