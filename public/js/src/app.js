@@ -30,6 +30,7 @@ angular.module('app', [
 				$scope.usersNames = "";
 				$scope.userReadyToChat = false;
 				$scope.messages = [];
+				$scope.isScrolledToBottom = true;
 			}
 
 			$scope.reset();
@@ -103,14 +104,27 @@ angular.module('app', [
 				}
 			};
 
+			/**
+			 * Show hide the channel information / the sidebar. Only applicable on mobile, always visible on tablet/desktop
+			 * @return {null}
+			 */
 			$scope.toggleChannelInformation = function(){
 				$mdSidenav('active-users').toggle();
 			}
 
-			$scope.scrollToBottom = function(){
-				$location.hash('bottom');
+			/**
+			 * Scroll to a given hash. Gracefully fails if element is non-existent
+			 * @param  {String} hash hash of the element to scroll to
+			 * @return {null}
+			 */
+			$scope.scrollTo = function(hash){
+				$anchorScroll(hash);
 			}
 
+			/**
+			 * Connect to the socket and enable listeners. Also, log the user in via socket
+			 * @return {null}
+			 */
 			$scope.initializeConnection = function(){
 				// Connect to the socket
 				socket.connect();
@@ -154,9 +168,11 @@ angular.module('app', [
 								timestamp: json.timestamp,
 								type: 'user'
 							});
+
 							// Scroll to bottom on every message
-							$scope.scrollToBottom();
-					      	$anchorScroll();
+							if($scope.isScrolledToBottom){
+								$scope.scrollTo('bottom');
+							}
 						});
 					}
 				});
@@ -179,7 +195,6 @@ angular.module('app', [
 					user: $scope.user,
 					channel: $scope.channel
 				});
-
 				
 			}
 		}

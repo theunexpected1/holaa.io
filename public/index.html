@@ -52,7 +52,7 @@
 
 		<div class="chat-room-container" layout="row" flex ng-show="userReadyToChat" >
 			<div layout="column" flex class="chat-room" flex layout-align="space-between start">
-				<div flex class="fade chat-message-container" md-scroll-y>
+				<div flex class="fade chat-message-container" app-scroll-binding>
 					<div class="message-block" ng-repeat="message in messages" flex layout="column">
 						<div ng-if="message.type=='user'">
 							<a flex class="author" style="color: {{message.user.color}}">{{message.user.fullName}} <i class="timestamp">{{message.timestamp | date:'h:mma'}}</i></a>
