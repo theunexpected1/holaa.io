@@ -67,7 +67,7 @@
 					<h5 class="message-block user-alone" ng-show="users.length == 1"> There is nobody apart from you in this channel</h5>
 					<div id="bottom"></div>
 				</div>
-				<form name="messageForm" ng-submit="submitMessage()"layout="row" class="chat-input-container">
+				<form name="messageForm" ng-submit="submitMessage()" layout="row" class="chat-input-container">
 					<h5 class="author" ng-attr-title="{{user.fullName}}">
 						{{user.fullName.length >= 10 ? user.fullName.substr(0, 10) + '...' : user.fullName}}:
 					</h5>
