@@ -34,4 +34,21 @@ angular.module('app.services', [])
         		return $sce.trustAsHtml(text);
         	};
 		}
+	])
+	.directive('appScrollBinding',[
+		function(){
+			return function(scope, element, attrs){
+				// Check if the user is scrolled to the bottom of messages, or they may be reading the messages by scrolling up.
+				// This is mainly to test if on loading of new messages, should the app show the user with new message by auto scrolling them to bottom or not
+				angular.element(element).bind('scroll', function(){
+					var offset = 100;
+					if((this.scrollHeight - offset) <= (this.offsetHeight + this.scrollTop)){
+						scope.isScrolledToBottom = true;
+					} else{
+						scope.isScrolledToBottom = false;
+					}
+					scope.$apply();
+				});
+			}
+		}
 	]);

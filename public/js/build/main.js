@@ -31,6 +31,7 @@ angular.module('app', [
 				$scope.usersNames = "";
 				$scope.userReadyToChat = false;
 				$scope.messages = [];
+				$scope.isScrolledToBottom = true;
 			}
 
 			$scope.reset();
@@ -104,14 +105,27 @@ angular.module('app', [
 				}
 			};
 
+			/**
+			 * Show hide the channel information / the sidebar. Only applicable on mobile, always visible on tablet/desktop
+			 * @return {null}
+			 */
 			$scope.toggleChannelInformation = function(){
 				$mdSidenav('active-users').toggle();
 			}
 
-			$scope.scrollToBottom = function(){
-				$location.hash('bottom');
+			/**
+			 * Scroll to a given hash. Gracefully fails if element is non-existent
+			 * @param  {String} hash hash of the element to scroll to
+			 * @return {null}
+			 */
+			$scope.scrollTo = function(hash){
+				$anchorScroll(hash);
 			}
 
+			/**
+			 * Connect to the socket and enable listeners. Also, log the user in via socket
+			 * @return {null}
+			 */
 			$scope.initializeConnection = function(){
 				// Connect to the socket
 				socket.connect();
@@ -155,9 +169,11 @@ angular.module('app', [
 								timestamp: json.timestamp,
 								type: 'user'
 							});
+
 							// Scroll to bottom on every message
-							$scope.scrollToBottom();
-					      	$anchorScroll();
+							if($scope.isScrolledToBottom){
+								$scope.scrollTo('bottom');
+							}
 						});
 					}
 				});
@@ -180,7 +196,6 @@ angular.module('app', [
 					user: $scope.user,
 					channel: $scope.channel
 				});
-
 				
 			}
 		}
@@ -222,6 +237,23 @@ angular.module('app.services', [])
 			return function(text){
         		return $sce.trustAsHtml(text);
         	};
+		}
+	])
+	.directive('appScrollBinding',[
+		function(){
+			return function(scope, element, attrs){
+				// Check if the user is scrolled to the bottom of messages, or they may be reading the messages by scrolling up.
+				// This is mainly to test if on loading of new messages, should the app show the user with new message by auto scrolling them to bottom or not
+				angular.element(element).bind('scroll', function(){
+					var offset = 100;
+					if((this.scrollHeight - offset) <= (this.offsetHeight + this.scrollTop)){
+						scope.isScrolledToBottom = true;
+					} else{
+						scope.isScrolledToBottom = false;
+					}
+					scope.$apply();
+				});
+			}
 		}
 	]);
 },{}]},{},["/Applications/MAMP/htdocs/interactive/public/js/src/app.js","/Applications/MAMP/htdocs/interactive/public/js/src/app.services.js"]);
