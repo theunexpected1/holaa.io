@@ -7,14 +7,14 @@ var express = require('express'),
 	io = require('socket.io')(http),
 	_ = require('lodash'),
 	bunyan = require('bunyan'),
-	port = process.env.PORT || 8080,
+	config = require('./system/config/' + process.env.NODE_ENV),
 	users = {},
 	server,
 	log = bunyan.createLogger({name: 'interactive'});
 
 // Initialization
-server = http.listen(port);
-log.info('listening to server on http://localhost:' + port);
+server = http.listen(config.port);
+log.info('listening to server on http://localhost:' + config.port);
 
 // Middlewares
 app.use(express.static('public'));
