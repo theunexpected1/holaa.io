@@ -1,3 +1,6 @@
+// App
+
+// Modules
 var express = require('express'),
 	app = express(),
 	http = require('http').Server(app),
@@ -9,15 +12,18 @@ var express = require('express'),
 	server,
 	log = bunyan.createLogger({name: 'interactive'});
 
+// Initialization
 server = http.listen(port);
 log.info('listening to server on http://localhost:' + port);
 
+// Middlewares
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/views/index.html');
 });
 
+// Socket connection
 io.on('connection', function(socket){
 	log.info('socket:connected!');
 
