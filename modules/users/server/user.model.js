@@ -7,6 +7,11 @@ var mongoose = require('mongoose'),
 
 UserSchema = new Schema({
 	fullname: String,
+	channel: {
+		type: Schema.ObjectId,
+		ref: 'Channel'
+	},
+	email: String,
 	created: {
 		type: Date,
 		default: Date.now
