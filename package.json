@@ -29,6 +29,7 @@
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "lodash": "^3.9.3",
+    "mongoose": "^4.0.4",
     "socket.io": "^1.3.5"
   },
   "devDependencies": {

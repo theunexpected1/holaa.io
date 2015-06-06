@@ -8,9 +8,20 @@ var express = require('express'),
 	_ = require('lodash'),
 	bunyan = require('bunyan'),
 	config = require('./system/config/' + process.env.NODE_ENV),
+	mongoose = require('mongoose'),
+	db,
 	users = {},
 	server,
 	log = bunyan.createLogger({name: 'interactive'});
+
+// Database connection
+db = mongoose.connect(config.db);
+mongoose.connection.on('open', function(){
+	log.info('db connected');
+});
+mongoose.connection.on('error', function(){
+	log.error('db connection failed!');
+});
 
 // Initialization
 server = http.listen(config.port);
