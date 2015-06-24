@@ -5,47 +5,36 @@ var express = require('express'),
 	app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
-	fs = require('fs'),
 	_ = require('lodash'),
 	bunyan = require('bunyan'),
-	config = require('./system/config/' + process.env.NODE_ENV),
 	mongoose = require('mongoose'),
+	config = require('./system/config/' + process.env.NODE_ENV),
 	db,
 	users = {},
 	server,
-	log = bunyan.createLogger({name: 'interactive'}),
-	System = {},
-	// Paths
-	helperPath = './system/helpers/';
+	System = {
+		app: app,
+		log: bunyan.createLogger({name: 'interactive'}),
+		helpers: {}
+	},
+	helpers = require('./system/helpers/');
 
 
 // Initialize System object
-System = {
-	app: app,
-	helpers: {}
-};
-
-// Load Helpers
-var helperFiles = fs.readdirSync(helperPath);
-helperFiles.forEach(function(helperFile){
-	if(helperFile.indexOf('.js') > -1) {
-		var helper = require(helperPath + helperFile)(System);
-		System.helpers[helper.key] = helper.module;
-	}
-});
+System.helpers = helpers(System);
 
 // Database connection
 db = mongoose.connect(config.db);
 mongoose.connection.on('open', function(){
-	log.info('db connected');
+	System.log.info('db connected');
 });
 mongoose.connection.on('error', function(){
-	log.error('db connection failed!');
+	System.log.error('db connection failed!');
 });
 
 // Initialization
 server = http.listen(config.port);
-log.info('listening to server on http://localhost:' + config.port);
+System.log.info('listening to server on http://localhost:' + config.port);
 
 // Middlewares
 app.use(express.static('public'));
@@ -56,11 +45,11 @@ app.get('/', function(req, res){
 
 // Socket connection
 io.on('connection', function(socket){
-	log.info('socket:connected!');
+	System.log.info('socket:connected!');
 
 	// Login listener
 	socket.on('login', function(json){
-		log.info('socket:login');
+		System.log.info('socket:login');
 		
 		// Ensure '#' prepend before channel name
 		json.channel = json.channel.indexOf('#') == 0 ? json.channel : '#' + json.channel;
@@ -85,7 +74,7 @@ io.on('connection', function(socket){
 
 	// Incoming message listener
 	socket.on('message', function(json){
-		log.info('socket:message');
+		System.log.info('socket:message');
 		json.timestamp = Date.now();
 		io.to(socket.channel).emit('message', json);
 	});
@@ -96,7 +85,7 @@ io.on('connection', function(socket){
 
 	// Disconnect listener
 	socket.on('disconnect', function(){
-		log.info('socket:disconnect');
+		System.log.info('socket:disconnect');
 		// Let everyone, except the initiator, know that a user has left
 		socket.broadcast.to(socket.channel).emit('userLeft', socket.userDetails);
 		_.remove(users[socket.channel], socket.userDetails);
