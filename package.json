@@ -31,9 +31,6 @@
     "lodash": "^3.9.3",
     "socket.io": "^1.3.5"
   },
-  "config": {
-    "unsafe-perm": true
-  },
   "devDependencies": {
     "grunt-browserify": "^3.8.0",
     "grunt-concurrent": "^1.0.0",
