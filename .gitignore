@@ -29,7 +29,7 @@ node_modules
 public/bower_components
 
 # Unnecessary files
-*/.DS_Store
+.DS_Store
 
 # Caches
 .sass-cache
