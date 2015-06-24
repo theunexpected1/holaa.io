@@ -5,6 +5,7 @@ var express = require('express'),
 	app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
+	fs = require('fs'),
 	_ = require('lodash'),
 	bunyan = require('bunyan'),
 	config = require('./system/config/' + process.env.NODE_ENV),
@@ -12,7 +13,26 @@ var express = require('express'),
 	db,
 	users = {},
 	server,
-	log = bunyan.createLogger({name: 'interactive'});
+	log = bunyan.createLogger({name: 'interactive'}),
+	System = {},
+	// Paths
+	helperPath = './system/helpers/';
+
+
+// Initialize System object
+System = {
+	app: app,
+	helpers: {}
+};
+
+// Load Helpers
+var helperFiles = fs.readdirSync(helperPath);
+helperFiles.forEach(function(helperFile){
+	if(helperFile.indexOf('.js') > -1) {
+		var helper = require(helperPath + helperFile)(System);
+		System.helpers[helper.key] = helper.module;
+	}
+});
 
 // Database connection
 db = mongoose.connect(config.db);
