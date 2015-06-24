@@ -28,5 +28,8 @@ public/css/build/main.css.map
 node_modules
 public/bower_components
 
+# Unnecessary files
+*/.DS_Store
+
 # Caches
 .sass-cache
