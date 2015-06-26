@@ -1,4 +1,4 @@
-// Channel model
+// Channels model
 'use strict';
 
 var mongoose = require('mongoose'),

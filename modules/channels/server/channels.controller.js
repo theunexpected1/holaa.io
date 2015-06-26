@@ -1,10 +1,10 @@
-// Channel controller
+// Channels controller
 'use strict';
 
 module.exports = function(System){
 	var channelController = {},
 		mongoose = require('mongoose'),
-		Channel = require('./channel.model'),
+		Channel = require('./channels.model'),
 		communication = System.helpers.communication;
 
 	/**
