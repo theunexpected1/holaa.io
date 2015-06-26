@@ -19,9 +19,18 @@ ChannelSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	total_visits: Number,
-	maximum_visitors: Number,
-	active_visitors: Number
+	total_visits: {
+		type: Number,
+		default: 0
+	},
+	maximum_visitors: {
+		type: Number,
+		default: 0
+	},
+	active_visitors: {
+		type: Number,
+		default: 0
+	}
 });
 
 module.exports = mongoose.model('Channel', ChannelSchema);
