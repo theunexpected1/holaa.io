@@ -7,6 +7,7 @@ var express = require('express'),
 	io = require('socket.io')(http),
 	_ = require('lodash'),
 	bunyan = require('bunyan'),
+	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
 	config = require('./system/config/' + process.env.NODE_ENV),
 	db,
@@ -14,14 +15,26 @@ var express = require('express'),
 	server,
 	System = {
 		app: app,
+		express: express,
 		log: bunyan.createLogger({name: 'interactive'}),
-		helpers: {}
+		helpers: {},
+		modules: {}
 	},
-	helpers = require('./system/helpers/');
+	helpers = require('./system/helpers/'),
+	modules = require('./system/modules/');
 
+
+// Middlewares
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/public/views/index.html');
+});
 
 // Initialize System object
 System.helpers = helpers(System);
+System.modules = modules(System);
 
 // Database connection
 db = mongoose.connect(config.db);
@@ -35,13 +48,6 @@ mongoose.connection.on('error', function(){
 // Initialization
 server = http.listen(config.port);
 System.log.info('listening to server on http://localhost:' + config.port);
-
-// Middlewares
-app.use(express.static('public'));
-
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/public/views/index.html');
-});
 
 // Socket connection
 io.on('connection', function(socket){
