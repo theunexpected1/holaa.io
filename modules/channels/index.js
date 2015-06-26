@@ -1,8 +1,8 @@
-// Channel Module
+// Channels Module
 'use strict';
 
 module.exports = function(System){
-	var moduleRoute = require('./server/channel.route')(System);
+	var moduleRoute = require('./server/channels.route')(System);
 
 	// Return module object
 	return {
