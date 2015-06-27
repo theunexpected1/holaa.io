@@ -10,7 +10,7 @@ module.exports = function (System) {
 
 	appModuleFiles.forEach(function(moduleFile){
 		if(ignoreModules.indexOf(moduleFile) === -1 ){
-			var module = require('../../modules/' + moduleFile)(System);
+			var module = require('../../modules/' + moduleFile + '/server/')(System);
 			modules.push(module);
 		}
 	});
@@ -18,7 +18,7 @@ module.exports = function (System) {
 	// Attach module routes to app
 	modules.forEach(function(module){
 		System.log.info('Loaded module: ' + module.routeName);
-		System.app.use('/' + module.routeName, module.route);
+		System.app.use('/api/' + module.routeName, module.route);
 	});
 
 	return modules;

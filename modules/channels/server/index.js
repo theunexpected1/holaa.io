@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function(System){
-	var moduleRoute = require('./server/channels.route')(System);
+	var moduleRoute = require('./channels.route')(System);
 
 	// Return module object
 	return {
