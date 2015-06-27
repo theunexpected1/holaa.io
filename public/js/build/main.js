@@ -1,16 +1,57 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Applications/MAMP/htdocs/interactive/public/js/src/app.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Applications/MAMP/htdocs/interactive/modules/channels/public/channelsService.js":[function(require,module,exports){
+// Channels Service
+'use strict';
+
+angular.module('app.channels')
+	.factory('Channel', [
+		'$resource',
+		function($resource){
+			return $resource('/api/channels/:id');
+		}
+	]);
+},{}],"/Applications/MAMP/htdocs/interactive/modules/channels/public/index.js":[function(require,module,exports){
+// Channels Service
+'use strict';
+
+angular.module('app.channels', []);
+},{}],"/Applications/MAMP/htdocs/interactive/modules/users/public/index.js":[function(require,module,exports){
+// Users Service
+'use strict';
+
+angular.module('app.users', []);
+},{}],"/Applications/MAMP/htdocs/interactive/modules/users/public/usersService.js":[function(require,module,exports){
+// Users Service
+'use strict';
+
+angular.module('app.users')
+	.factory('User', [
+		'$resource',
+		function($resource){
+			return $resource('/api/users/:id');
+		}
+	]);
+},{}],"/Applications/MAMP/htdocs/interactive/public/js/src/app.js":[function(require,module,exports){
 // App
 'use strict';
 
 angular.module('app', [
 	'ngMaterial', 
 	'ngAnimate',
-	'app.services'
+	'ngResource',
+	'toastr',
+	'app.services',
+	'app.users',
+	'app.channels'
 	])
-	.config( function($mdThemingProvider){
+	.config( function($mdThemingProvider, toastrConfig){
 		$mdThemingProvider.theme('default')
 			// .primaryPalette('pink')
 			// .accentPalette('blue')
+
+		// Extend toastr configuration
+		angular.extend(toastrConfig, {
+			positionClass: 'toast-top-right'
+		});
 	})
 
 	.controller('appController', [
@@ -19,9 +60,12 @@ angular.module('app', [
 		'$sce',
 		'$location',
 		'$anchorScroll',
+		'toastr',
 		'socket',
 		'colors',
-		function($scope, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
+		'User',
+		'Channel',
+		function($scope, $mdSidenav, $sce, $location, $anchorScroll, toastr, socket, colors, User, Channel){
 			// Setup Initials
 			var defaultChannelName = '#general';
 			$scope.reset = function(){
@@ -80,6 +124,12 @@ angular.module('app', [
 				$scope.user.color = colors.randomizeFromConfig();
 				$scope.userReadyToChat = true;
 				$scope.initializeConnection();
+				var user = new User($scope.user);
+				user.$save(function(res){
+					if(!res.status){
+						toastr.error('There was an issue in logging in, please try again later.');
+					}
+				});
 			};
 
 			/**
@@ -256,4 +306,4 @@ angular.module('app.services', [])
 			}
 		}
 	]);
-},{}]},{},["/Applications/MAMP/htdocs/interactive/public/js/src/app.js","/Applications/MAMP/htdocs/interactive/public/js/src/app.services.js"]);
+},{}]},{},["/Applications/MAMP/htdocs/interactive/public/js/src/app.js","/Applications/MAMP/htdocs/interactive/public/js/src/app.services.js","/Applications/MAMP/htdocs/interactive/modules/channels/public/channelsService.js","/Applications/MAMP/htdocs/interactive/modules/channels/public/index.js","/Applications/MAMP/htdocs/interactive/modules/users/public/index.js","/Applications/MAMP/htdocs/interactive/modules/users/public/usersService.js"]);
