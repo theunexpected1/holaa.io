@@ -25,7 +25,8 @@ var express = require('express'),
 
 
 // Middlewares
-app.use(express.static('public'));
+app.use('/', express.static('public'));
+app.use('/modules/', express.static('modules'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', function(req, res){
