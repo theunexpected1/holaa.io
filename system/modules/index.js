@@ -6,7 +6,7 @@ module.exports = function (System) {
 	var fs = require('fs'),
 		appModuleFiles = fs.readdirSync('./modules/'),
 		modules = [],
-		ignoreModules = ['users']; // Ignore under-development modules
+		ignoreModules = []; // Ignore under-development modules
 
 	appModuleFiles.forEach(function(moduleFile){
 		if(ignoreModules.indexOf(moduleFile) === -1 ){
@@ -17,6 +17,7 @@ module.exports = function (System) {
 
 	// Attach module routes to app
 	modules.forEach(function(module){
+		System.log.info('Loaded module: ' + module.routeName);
 		System.app.use('/' + module.routeName, module.route);
 	});
 
