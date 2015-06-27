@@ -4,12 +4,21 @@
 angular.module('app', [
 	'ngMaterial', 
 	'ngAnimate',
-	'app.services'
+	'ngResource',
+	'toastr',
+	'app.services',
+	'app.users',
+	'app.channels'
 	])
-	.config( function($mdThemingProvider){
+	.config( function($mdThemingProvider, toastrConfig){
 		$mdThemingProvider.theme('default')
 			// .primaryPalette('pink')
 			// .accentPalette('blue')
+
+		// Extend toastr configuration
+		angular.extend(toastrConfig, {
+			positionClass: 'toast-top-right'
+		});
 	})
 
 	.controller('appController', [
@@ -18,9 +27,12 @@ angular.module('app', [
 		'$sce',
 		'$location',
 		'$anchorScroll',
+		'toastr',
 		'socket',
 		'colors',
-		function($scope, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
+		'User',
+		'Channel',
+		function($scope, $mdSidenav, $sce, $location, $anchorScroll, toastr, socket, colors, User, Channel){
 			// Setup Initials
 			var defaultChannelName = '#general';
 			$scope.reset = function(){
@@ -79,6 +91,12 @@ angular.module('app', [
 				$scope.user.color = colors.randomizeFromConfig();
 				$scope.userReadyToChat = true;
 				$scope.initializeConnection();
+				var user = new User($scope.user);
+				user.$save(function(res){
+					if(!res.status){
+						toastr.error('There was an issue in logging in, please try again later.');
+					}
+				});
 			};
 
 			/**
