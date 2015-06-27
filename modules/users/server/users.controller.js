@@ -15,7 +15,7 @@ module.exports = function(System){
 	 */
 	usersController.create = function(req, res){
 		var params = {
-			fullname: req.body.fullname,
+			fullName: req.body.fullName,
 			email: req.body.email
 		};
 
