@@ -17,6 +17,8 @@
     "angular-material": "~0.9.4",
     "angular-ui-router": "~0.2.15",
     "socket.io-client": "~1.3.5",
-    "lodash": "~3.9.2"
+    "lodash": "~3.9.2",
+    "angular-resource": "~1.4.1",
+    "angular-toastr": "~1.4.1"
   }
 }
