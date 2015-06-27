@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 	UserSchema;
 
 UserSchema = new Schema({
-	fullname: String,
+	fullName: String,
 	channel: {
 		type: Schema.ObjectId,
 		ref: 'Channel'
