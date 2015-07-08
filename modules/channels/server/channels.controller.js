@@ -14,9 +14,8 @@ module.exports = function(System){
 	 * @return {Object}     Communication response object
 	 */
 	channelController.create = function(req, res){
-		var params = {
-			title: req.body.title
-		}
+		var params = req.body;
+
 		var channel = new Channel(params);
 		channel.save(function(err, data){
 			if(err){
