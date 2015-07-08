@@ -6,7 +6,10 @@
   "scripts": {
     "test": "git status",
     "postinstall": "./node_modules/bower/bin/bower install --allow-root",
-    "start": "node index"
+    "start:dev": "NODE_ENV=development nodemon index.js | bunyan",
+    "start:prod": "NODE_ENV=production nodemon index.js | bunyan",
+    "start:dist": "npm run start:prod",
+    "start": "npm run start:dev"
   },
   "repository": {
     "type": "git",
