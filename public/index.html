@@ -4,12 +4,11 @@
 	<meta charset="UTF-8">
 	<title>Hello socket world</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+	<link href="/bower_components/angular-material/angular-material.min.css" rel="stylesheet">
 	<link href="/css/build/main.css" rel="stylesheet">
 </head>
 <body ng-app="app">
-
-	<div ng-controller="appController" layout="column" class="main-content">
+	<div ui-view layout="column" class="main-content">
 		<md-toolbar class="md-primary app-toolbar" layout="row" layout-wrap>
 			<h1 class="md-toolbar-tools" flex>
 				<span ng-show="!userReadyToChat"> Join the conversation</span>
@@ -33,13 +32,13 @@
 							<div flex>
 								<md-input-container>
 									<label>Full name</label>
-									<input required ng-model="user.fullName">
+									<input required ng-model="user.fullName" auto-focus="!user.fullName">
 								</md-input-container>
 							</div>
 							<div flex layout="row">
 								<md-input-container flex>
 									<label>Channel</label>
-									<input ng-model="channel" ng-blur="fixChannelName(channel, true)" ng-keyup="fixChannelName(channel, false)">
+									<input ng-model="channel" ng-init="fixChannelName(channel, true)" ng-blur="fixChannelName(channel, true)" ng-keyup="fixChannelName(channel, false)">
 								</md-input-container>
 								<md-button class=" md-fab md-accent ">Enter</md-button>
 							</div>
@@ -94,7 +93,7 @@
 	
 	<script src="/bower_components/lodash/lodash.min.js"></script>
 	<script src="/bower_components/angular/angular.min.js"></script>
-	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="/bower_components/ui-router/release/angular-ui-router.min.js"></script>
 
 	<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
 	<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
