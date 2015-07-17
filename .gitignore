@@ -33,3 +33,6 @@ public/bower_components
 
 # Junk
 .DS_Store
+
+# Resources
+res
