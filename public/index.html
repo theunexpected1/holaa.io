@@ -8,7 +8,7 @@
 	<meta name="keywords" content="holaa, holaa.io, chat, Anonymous, real time, interactive, public chat, no history, no login, talk, mean, angular material, socket, hi, hello"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="Holaa.io - Anonymous, real time, interactive, public chat on any topic"/>
-	<meta property="og:image" content=""/>
+	<meta property="og:image" content="/screenshot.jpg"/>
 	<meta property="og:site_name" content="holaa.io"/>
 	<meta property="og:description" content="Holaa.io - Anonymous, real time, interactive, public chat on any topic (hashtags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets"/>
 	
@@ -17,8 +17,8 @@
 	<link href="http://weloveiconfonts.com/api/?family=entypo" rel="stylesheet">
 	<link href="/css/build/main.css" rel="stylesheet">
 </head>
-<body>
-	<div ui-view layout="column" class="main-content">
+<body ui-view ng-class="{'ready': appReady}">
+	<div layout="column" class="main-content">
 		<md-toolbar class="md-primary app-toolbar" layout="row" layout-wrap>
 			<h1 class="md-toolbar-tools" flex>
 				<span ng-show="!userReadyToChat"> Join the conversation</span>

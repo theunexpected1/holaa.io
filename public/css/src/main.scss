@@ -11,6 +11,13 @@ $transitionDuration: 0.15s;
 }
 
 /** General */
+body{
+	opacity: 0;
+	@include transition(all $transitionDuration);
+	&.ready{
+		opacity: 1;
+	}
+}
 .app-toolbar{
 	.action{
 		font-size: 20px;
