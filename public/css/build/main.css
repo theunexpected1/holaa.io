@@ -1,5 +1,13 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
 /** General */
+body {
+  opacity: 0;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -ms-transition: all 0.15s;
+  transition: all 0.15s; }
+  body.ready {
+    opacity: 1; }
+
 .app-toolbar .action {
   font-size: 20px; }
 

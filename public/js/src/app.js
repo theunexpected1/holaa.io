@@ -212,6 +212,7 @@ angular.module('app', [
 
 			// Initialize
 			$scope.initialize = function(){
+				$scope.appReady = true;
 				$scope.logout();
 				$scope.channel = $stateParams.channel || defaultChannelName;
 				$scope.user = $stateParams.user ? {fullName: $stateParams.user} : {};
