@@ -5,6 +5,6 @@ angular.module('app.channels')
 	.factory('Channel', [
 		'$resource',
 		function($resource){
-			return $resource('/api/channels/:id');
+			return $resource('/api/channels/:title/:action');
 		}
 	]);

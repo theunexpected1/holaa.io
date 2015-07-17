@@ -33,4 +33,49 @@ ChannelSchema = new Schema({
 	}
 });
 
+ChannelSchema.virtual('user').set(function(user){
+	console.log('virtual user');
+	var User = mongoose.model('User');
+	var _this = this;
+	User
+		.findOne({fullName: user.fullName})
+		.exec(function(err, user){
+			_this.created_by = user
+		});
+}).get(function(){
+	return this.created_by;
+});
+
+ChannelSchema.pre('save', function (next) {
+	var _this = this;
+	console.log('channel presave');
+	if(_this.isNew){
+		mongoose.models['Channel'].findOne({title : _this.title}, function(err, channel) {
+			if(err) {
+				next(err);
+			} else if(channel) {
+				channel.addVisitor();
+				channel.save();
+				_this.invalidate('title', 'Channel already exists');
+			} else {
+				_this.addVisitor();
+				next();
+			}
+		});
+	} else{
+		next();
+	}
+});
+
+ChannelSchema.methods.addVisitor = function(){
+	console.log('adding visitor');
+	this.total_visits++;
+	this.active_visitors++;
+	this.maximum_visitors = Math.max(this.maximum_visitors, this.active_visitors);
+};
+
+ChannelSchema.methods.removeVisitor = function(){
+	this.active_visitors--;
+}
+
 module.exports = mongoose.model('Channel', ChannelSchema);
