@@ -1,7 +1,7 @@
 {
-  "name": "interactive",
+  "name": "holaa.io",
   "version": "0.0.1",
-  "description": "Interactive - play with sockets",
+  "description": "Holaa.io - Anonymous, real time, interactive, public chat on any topic (hashtags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
   "main": "index.js",
   "scripts": {
     "test": "git status",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/theunexpected1/interactive.git"
+    "url": "https://github.com/theunexpected1/holaa.io.git"
   },
   "keywords": [
     "socket",
-    "interactive"
+    "holaa.io"
   ],
   "author": "Rahul Vagadiya <rahul.vagadiya@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/theunexpected1/interactive/issues"
+    "url": "https://github.com/theunexpected1/holaa.io/issues"
   },
-  "homepage": "https://github.com/theunexpected1/interactive",
+  "homepage": "https://github.com/theunexpected1/holaa.io",
   "dependencies": {
     "bower": "^1.3.12",
     "bunyan": "^1.3.6",
