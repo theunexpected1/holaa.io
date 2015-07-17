@@ -2,38 +2,58 @@
 'use strict';
 
 angular.module('app', [
-	'ngMaterial', 
+	'ngMaterial',
 	'ngAnimate',
+	'ui.router',
 	'app.services'
 	])
-	.config( function($mdThemingProvider){
-		$mdThemingProvider.theme('default')
-			// .primaryPalette('pink')
-			// .accentPalette('blue')
-	})
+	.config([
+		'$mdThemingProvider',
+		'$locationProvider',
+		'$urlRouterProvider',
+		'$stateProvider',
+		function($mdThemingProvider, $locationProvider, $urlRouterProvider, $stateProvider) {
+			$mdThemingProvider.theme('default')
+				// .primaryPalette('pink')
+				// .accentPalette('blue')
+
+			// $locationProvider.html5Mode(true);
+
+			$locationProvider.html5Mode({
+			  enabled: true,
+			  requireBase: false
+			});
+
+			$stateProvider
+				.state('home', {
+					url: '/',
+					controller: 'appController'
+				})
+				.state('channel', {
+					url: '/$:channel',
+					controller: 'appController'
+				})
+				.state('channelUser', {
+					url: '/$:channel/:user',
+					controller: 'appController'
+				});
+
+			$urlRouterProvider.otherwise('/');
+		}
+	])
 
 	.controller('appController', [
 		'$scope',
+		'$stateParams',
 		'$mdSidenav',
 		'$sce',
 		'$location',
 		'$anchorScroll',
 		'socket',
 		'colors',
-		function($scope, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
+		function($scope, $stateParams, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
 			// Setup Initials
-			var defaultChannelName = '#general';
-			$scope.reset = function(){
-				$scope.channel = defaultChannelName;
-				$scope.user = {};
-				$scope.users = [];
-				$scope.usersNames = "";
-				$scope.userReadyToChat = false;
-				$scope.messages = [];
-				$scope.isScrolledToBottom = true;
-			}
-
-			$scope.reset();
+			var defaultChannelName = '$general';
 
 			$scope.$watch('users', function(value){
 				$scope.usersNames = _.pluck($scope.users, 'fullName').join(', ');
@@ -63,10 +83,10 @@ angular.module('app', [
 			 * @return {String}               Formatted channel name
 			 */
 			$scope.fixChannelName = function(value, checkForEmpty){
-				if(checkForEmpty && (!value || value === '' || value === '#')){
+				if(checkForEmpty && (!value || value === '' || value === '$')){
 					value = defaultChannelName;
 				}
-				$scope.channel = value.indexOf('#') == 0 ? value : '#' + value;
+				$scope.channel = value.indexOf('$') == 0 ? value : '$' + value;
 				return value;
 			};
 
@@ -75,10 +95,7 @@ angular.module('app', [
 			 * @return {null}
 			 */
 			$scope.login = function(){
-				// Give the user's name a unique color
-				$scope.user.color = colors.randomizeFromConfig();
-				$scope.userReadyToChat = true;
-				$scope.initializeConnection();
+				$location.path($scope.channel + '/' + $scope.user.fullName);
 			};
 
 			/**
@@ -86,7 +103,9 @@ angular.module('app', [
 			 * @return {null}
 			 */
 			$scope.logout = function(){
-				socket.conn.close();
+				if(socket && socket.conn){
+					socket.conn.close();
+				}
 			};
 
 			/**
@@ -179,14 +198,7 @@ angular.module('app', [
 
 				// Logout user on disconnection
 				socket.conn.on('disconnect', function(){
-					console.log('socket:disconnected');
-					if ($scope.$$phase) {
-						$scope.reset();
-					} else{
-						$scope.$apply(function(){
-							$scope.reset();
-						});
-					}
+					$location.path('/');
 				});
 
 				// Send initial message
@@ -197,5 +209,24 @@ angular.module('app', [
 				});
 				
 			}
+
+			// Initialize
+			$scope.initialize = function(){
+				$scope.logout();
+				$scope.channel = $stateParams.channel || defaultChannelName;
+				$scope.user = $stateParams.user ? {fullName: $stateParams.user} : {};
+				$scope.users = [];
+				$scope.usersNames = "";
+				$scope.userReadyToChat = false;
+				$scope.messages = [];
+				$scope.isScrolledToBottom = true;
+				if($scope.channel && $scope.user.fullName){
+					// Give the user's name a unique color
+					$scope.user.color = colors.randomizeFromConfig();
+					$scope.userReadyToChat = true;
+					$scope.initializeConnection();
+				}
+			};
+			$scope.initialize();
 		}
 	]);
