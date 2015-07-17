@@ -91,12 +91,25 @@ angular.module('app', [
 				$scope.user.color = colors.randomizeFromConfig();
 				$scope.userReadyToChat = true;
 				$scope.initializeConnection();
-				var user = new User($scope.user);
-				user.$save(function(res){
+				var userResource = new User($scope.user);
+				userResource.$save(function(res){
 					if(!res.status){
-						toastr.error('There was an issue in logging in, please try again later.');
+						return toastr.error('There was an issue in logging in, please try again later.');
 					}
+					var channelResource = new Channel({
+						title: $scope.channel,
+						user: res.json
+					});
+
+					channelResource.$save(function(res){
+						if(!res.status){
+							return toast.error('Could not join channel. Please try joining again.');
+						}
+						console.log(res);
+					});
+					console.log(res);
 				});
+				
 			};
 
 			/**
@@ -198,6 +211,8 @@ angular.module('app', [
 				// Logout user on disconnection
 				socket.conn.on('disconnect', function(){
 					console.log('socket:disconnected');
+					var channelResource = Channel.get({title: $scope.channel, action: 'disconnect'});
+					
 					if ($scope.$$phase) {
 						$scope.reset();
 					} else{
