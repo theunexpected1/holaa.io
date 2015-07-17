@@ -12,11 +12,10 @@ var express = require('express'),
 	server = http.listen(port);
 	log.info('listening to server on http://localhost:' + port);
 
- 	app.use(express.static('public'));
-
- 	app.get('/', function(req, res){
- 		res.sendFile(__dirname + '/public/views/index.html');
- 	});
+	app.use('/', express.static(__dirname + '/public')); // set the static files location
+	app.get('*', function(req, res) {
+ 		res.sendFile(__dirname + '/public/');
+	});
 
  	io.on('connection', function(socket){
  		log.info('socket:connected!');
@@ -25,8 +24,8 @@ var express = require('express'),
 		socket.on('login', function(json){
 			log.info('socket:login');
 			
-			// Ensure '#' prepend before channel name
-			json.channel = json.channel.indexOf('#') == 0 ? json.channel : '#' + json.channel;
+			// Ensure '$' prepend before channel name
+			json.channel = json.channel.indexOf('$') == 0 ? json.channel : '$' + json.channel;
 
 			// Add to room
 			socket.join(json.channel);
