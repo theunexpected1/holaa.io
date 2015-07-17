@@ -15,14 +15,13 @@ module.exports = function(System){
 	 */
 	channelController.create = function(req, res){
 		var params = req.body;
-
 		var channel = new Channel(params);
 		channel.save(function(err, data){
 			if(err){
 				communication.fail(res, err);
 			}
 			return communication.ok(res, channel);
-		})
+		});
 	};
 
 	/**
@@ -33,14 +32,28 @@ module.exports = function(System){
 	 */
 	channelController.get = function(req, res){
 		// ToDo: Query here for retrieving channels based on params
-
-		Channel.find().exec(function(err, channels){
+		Channel.find(req.params).exec(function(err, channels){
 			if(err){
 				return communication.fail(res, err);
 			}
 			return communication.ok(res, channels);
 		});
 	};
+
+	channelController.userLeft = function(req, res){
+		if(req.params && req.params.action && req.params.action == 'disconnect'){
+			delete req.params.action;
+		}
+
+		var channel = Channel.findOne(req.params, function(err, channel){
+			if(err){
+				return communication.fail(res, err);
+			}
+			channel.removeVisitor();
+			channel.save();
+			return communication.ok(res, channel);
+		});
+	}
 
 	return channelController;
 }

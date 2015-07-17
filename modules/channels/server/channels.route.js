@@ -8,6 +8,7 @@ module.exports = function(System){
 	// Routes
 	router
 		.get('/', controller.get) // Get channels
+		.get('/:title/:action', controller.userLeft) // User leaves channel
 		.post('/', controller.create); // Create channel
 
 	return router;
