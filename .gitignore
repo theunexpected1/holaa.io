@@ -30,3 +30,6 @@ public/bower_components
 
 # Caches
 .sass-cache
+
+# Junk
+.DS_Store
