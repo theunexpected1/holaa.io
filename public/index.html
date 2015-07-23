@@ -24,11 +24,10 @@
 				<span ng-show="userReadyToChat"> {{channel}} </span>
 			</h1>
 			<h1 class="md-toolbar-tools" flex ng-show="helpShown">
-				<span> Holaa</span>
+				<a ui-sref="home"> <span class="entypo-chat"> holaa</span></a>
 			</h1>
 			
 			<md-button ng-click="toggleHelp()" class="md-icon-button action help-action" ng-class="{'md-accent': helpShown}" aria-label="Help"><span class="entypo-help"></span></md-button>
-			<div flex></div>
 			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1 && !helpShown" class="visibility-effect md-icon-button action">
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
