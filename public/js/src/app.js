@@ -131,6 +131,10 @@ angular.module('app', [
 				$mdSidenav('active-users').toggle();
 			}
 
+			$scope.toggleHelp = function(){
+				$scope.helpShown = !$scope.helpShown;
+			}
+
 			/**
 			 * Scroll to a given hash. Gracefully fails if element is non-existent
 			 * @param  {String} hash hash of the element to scroll to
@@ -221,6 +225,7 @@ angular.module('app', [
 				$scope.userReadyToChat = false;
 				$scope.messages = [];
 				$scope.isScrolledToBottom = true;
+				$scope.helpShown = false;
 				if($scope.channel && $scope.user.fullName){
 					// Give the user's name a unique color
 					$scope.user.color = colors.randomizeFromConfig();

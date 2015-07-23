@@ -25,13 +25,18 @@
 			</h1>
 			<div flex></div>
 			
-			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1" class="action">
+			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1" class="md-icon-button action">
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
-			<md-button ng-show="userReadyToChat" class="action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout"></span></md-button>
+			<md-button ng-click="toggleHelp()" class="md-icon-button action" aria-label="Help"><span class="entypo-help"></span></md-button>
+			<md-button ng-show="userReadyToChat" class="md-icon-button action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout"></span></md-button>
+
 			</h5>
 		</md-toolbar>
-
+		
+		<div layout="column" flex layout-align="center center" ng-show="helpShown" class="help-section slide-effect">
+			help
+		</div>
 		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat">
 			<div layout="column" layout-align="center">
 				<md-content layout-padding layout-align="center">

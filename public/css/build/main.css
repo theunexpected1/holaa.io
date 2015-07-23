@@ -8,8 +8,13 @@ body {
   body.ready {
     opacity: 1; }
 
+a.md-button:not([disabled]).md-icon-button:hover,
+.md-button:not([disabled]).md-icon-button:hover {
+  background-color: rgba(158, 158, 158, 0.2); }
+
 .app-toolbar .action {
-  font-size: 20px; }
+  font-size: 20px;
+  margin: 8px; }
 
 .main-content {
   height: 100%; }
@@ -20,6 +25,8 @@ h5 {
 #bottom {
   padding-bottom: 50px; }
 
+/* Effects */
+/* The starting CSS styles for the enter animation */
 /* entypo - custom font */
 [class*="entypo-"]:before {
   font-family: 'entypo', sans-serif; }
@@ -51,6 +58,33 @@ h5 {
   opacity: 0;
   transform: translate3d(100px, 0, 0); }
 
+.slide-effect {
+  transition: all linear 0.15s; }
+
+.slide-effect.ng-hide-remove {
+  height: 0%; }
+
+.slide-effect.ng-hide-remove.ng-hide-remove-active {
+  height: 100%; }
+
+.slide-effect.ng-hide-add {
+  height: 100%; }
+
+.slide-effect.ng-hide-add.ng-hide-add-active {
+  height: 0%; }
+
+/** Help area */
+.help-section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #3F51B5;
+  color: white;
+  z-index: 22222222;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  overflow: hidden; }
+
 /** Chat area */
 .chat-message-container {
   margin-bottom: 67px;
@@ -60,7 +94,7 @@ h5 {
   .chat-message-container .message-block {
     padding: 5px; }
   .chat-message-container .user-alone {
-    color: #448AFF; }
+    color: #3F51B5; }
 
 .chat-room {
   position: relative; }
@@ -91,7 +125,7 @@ h5 {
     line-height: 30px; }
 
 .message-block .author {
-  color: #448AFF;
+  color: #FF4081;
   font-weight: bold; }
 .message-block .timestamp {
   font-size: 12px;

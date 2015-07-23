@@ -1,5 +1,5 @@
-$primaryColor: #E91E63;
-$accentColor: #448AFF;
+$primaryColor: #3F51B5;
+$accentColor: #FF4081;
 
 $transitionDuration: 0.15s;
 
@@ -18,9 +18,16 @@ body{
 		opacity: 1;
 	}
 }
+
+a.md-button:not([disabled]).md-icon-button:hover,
+.md-button:not([disabled]).md-icon-button:hover{
+	background-color: rgba(158,158,158,0.2);
+}
+
 .app-toolbar{
 	.action{
 		font-size: 20px;
+		margin: 8px;
 	}
 }
 
@@ -33,6 +40,10 @@ h5{
 #bottom{
 	padding-bottom: 50px;
 }
+
+/* Effects */
+/* The starting CSS styles for the enter animation */
+
 
 /* entypo - custom font */
 [class*="entypo-"]:before {
@@ -65,6 +76,35 @@ h5{
 	transform: translate3d(100px, 0, 0);
 }
 
+.slide-effect {
+	transition: all linear $transitionDuration;
+}
+.slide-effect.ng-hide-remove {
+	height: 0%;
+}
+.slide-effect.ng-hide-remove.ng-hide-remove-active {
+	height: 100%;
+}
+.slide-effect.ng-hide-add {
+	height: 100%;
+}
+.slide-effect.ng-hide-add.ng-hide-add-active {
+	height: 0%;
+}
+
+/** Help area */
+.help-section{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: $primaryColor;
+	color: white;
+	z-index: 22222222;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	overflow: hidden;
+}
+
 /** Chat area */
 .chat-message-container{
 	margin-bottom: 67px;
@@ -75,7 +115,7 @@ h5{
 		padding: 5px;
 	}
 	.user-alone{
-		color: $accentColor;
+		color: $primaryColor;
 	}
 }
 .chat-room{
