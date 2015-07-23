@@ -19,19 +19,16 @@
 <body ui-view ng-class="{'ready': appReady}">
 	<div layout="column" class="main-content">
 		<md-toolbar class="md-primary app-toolbar" layout="row" layout-wrap>
-			<h1 class="md-toolbar-tools" flex ng-show="!helpShown">
-				<span ng-show="!userReadyToChat"> Join the conversation</span>
-				<span ng-show="userReadyToChat"> {{channel}} </span>
-			</h1>
-			<h1 class="md-toolbar-tools" flex ng-show="helpShown">
-				<a ui-sref="home"> <span class="entypo-chat"> holaa</span></a>
+			<h1 class="md-toolbar-tools" flex>
+				<a ui-sref="home"> <span class="entypo-chat"> holaa </span></a>
+				<span ng-show="userReadyToChat" ng-show="!helpShown"> &nbsp;&raquo; {{channel}} </span>
 			</h1>
 			
-			<md-button ng-click="toggleHelp()" class="md-icon-button action help-action" ng-class="{'md-accent': helpShown}" aria-label="Help"><span class="entypo-help"></span></md-button>
-			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1 && !helpShown" class="visibility-effect md-icon-button action">
+			<md-button ng-click="toggleHelp()" class="md-icon-button action help-action" ng-class="{'md-accent': helpShown}" aria-label="Help"><md-tooltip md-direction="bottom"> What is holaa?</md-tooltip><span class="entypo-help"></span></md-button>
+			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1 && !helpShown" class="visibility-effect md-icon-button action" ng-attr-title="{{users.length}} users online"> 
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
-			<md-button ng-show="userReadyToChat && !helpShown" class="visibility-effect md-icon-button action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout"></span></md-button>
+			<md-button ng-show="userReadyToChat && !helpShown" class="visibility-effect md-icon-button action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout" title="Logout"></span></md-button>
 			<md-button ng-show="$mdMedia('md') || helpShown" ng-class="{'md-accent': hoverGithub1}" ng-mouseenter="hoverGithub1=true"
     ng-mouseleave="hoverGithub1=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="left"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button>
 
@@ -129,7 +126,7 @@
 
 			<md-sidenav flex class="md-sidenav-right md-whiteframe-z3" md-is-locked-open="$mdMedia('gt-sm')" ng-show="userReadyToChat" md-component-id="active-users">
 				<md-content layout-padding>
-					<h1 layout-padding> Online users ({{users.length}})</h1>
+					<h1 layout-padding> Online ({{users.length}})</h1>
 					<ul layout-padding>
 						<li ng-repeat="user in users"> <span class="entypo-right-open"></span><span style="color: {{user.color}}">{{user.fullName}}</span></li>
 					</ul>
