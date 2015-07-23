@@ -7,7 +7,7 @@ var express = require('express'),
 	port = process.env.PORT || 8080,
 	users = {},
 	server,
-	log = bunyan.createLogger({name: 'interactive'});
+	log = bunyan.createLogger({name: 'holaa'});
 	
 	server = http.listen(port);
 	log.info('listening to server on http://localhost:' + port);
@@ -23,6 +23,14 @@ var express = require('express'),
  		// Login listener
 		socket.on('login', function(json){
 			log.info('socket:login');
+			json.timestamp = Date.now();
+			log.info({
+				login: {
+					loginIn: json.channel,
+					loginBy: json.user,
+					when: json.timestamp
+				}
+			});
 			
 			// Ensure '$' prepend before channel name
 			json.channel = json.channel.indexOf('$') == 0 ? json.channel : '$' + json.channel;
@@ -49,6 +57,13 @@ var express = require('express'),
 		socket.on('message', function(json){
 			log.info('socket:message');
 			json.timestamp = Date.now();
+			log.info({
+				message: {
+					messageIn: json.channel,
+					messageBy: json.user,
+					when: json.timestamp
+				}
+			});
 			io.to(socket.channel).emit('message', json);
 		});
 
