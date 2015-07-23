@@ -1,12 +1,13 @@
 {
   "name": "holaa.io",
   "version": "0.0.1",
-  "description": "Holaa.io - Anonymous, real time, interactive, public chat on any topic (hashtags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
+  "description": "Holaa.io - Anonymous, real time, interactive, public chat on any topic (dollartags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
   "main": "index.js",
   "scripts": {
     "test": "git status",
     "postinstall": "./node_modules/bower/bin/bower install --allow-root",
-    "start": "nodemon index | bunyan"
+    "start": "nodemon index | bunyan",
+    "start-dist" : "node index | bunyan"
   },
   "repository": {
     "type": "git",
