@@ -1,5 +1,5 @@
-$primaryColor: #E91E63;
-$accentColor: #448AFF;
+$primaryColor: #3F51B5;
+$accentColor: #FF4081;
 
 $transitionDuration: 0.15s;
 
@@ -10,6 +10,13 @@ $transitionDuration: 0.15s;
           transition: $all;
 }
 
+@mixin transform($param) {
+  -webkit-transform: $param;
+     -moz-transform: $param;
+      -ms-transform: $param;
+          transform: $param;
+}
+
 /** General */
 body{
 	opacity: 0;
@@ -18,12 +25,27 @@ body{
 		opacity: 1;
 	}
 }
+
+a.md-button:not([disabled]).md-icon-button:hover,
+.md-button:not([disabled]).md-icon-button:hover{
+	background-color: rgba(158,158,158,0.2);
+}
+
 .app-toolbar{
 	.action{
 		font-size: 20px;
+		margin: 8px;
+	}
+	.help-action{
+		position: absolute;
+		left: 50%;
+		margin-left: -24px;
 	}
 }
 
+.github-action{
+	font-size: 20px;
+}
 .main-content{
 	height: 100%;
 }
@@ -33,6 +55,24 @@ h5{
 #bottom{
 	padding-bottom: 50px;
 }
+
+/* order */
+md-toolbar{
+	position: relative;
+	z-index: 3;
+}
+.help-section{
+	z-index: 2;
+}
+.login-box, 
+.chat-room-container{
+	position: relative;
+	z-index: 1;
+}
+
+/* Effects */
+/* The starting CSS styles for the enter animation */
+
 
 /* entypo - custom font */
 [class*="entypo-"]:before {
@@ -47,6 +87,49 @@ h5{
 .fade.ng-hide{
 	opacity: 0;
 }
+.fade.ng-hide-remove {
+	opacity: 0;
+}
+.fade.ng-hide-remove.ng-hide-remove-active {
+	opacity: 1;
+}
+.fade.ng-hide-add {
+	opacity: 1;
+}
+.fade.ng-hide-add.ng-hide-add-active {
+	opacity: 0;
+}
+
+.visibility-effect{
+	opacity: 1;
+	visibility: visible;
+	@include transition(all $transitionDuration);
+}
+.visibility-effect.ng-hide{
+	display:block !important;
+	visibility: hidden;
+	opacity: 0;
+	&.md-toolbar-tools{
+		display: flex !important;
+	}
+}
+.visibility-effect.ng-hide-remove {
+	visibility: hidden;
+	opacity: 0;
+}
+.visibility-effect.ng-hide-remove.ng-hide-remove-active {
+	visibility: visible;
+	opacity: 1;
+}
+.visibility-effect.ng-hide-add {
+	visibility: visible;
+	opacity: 1;
+}
+.visibility-effect.ng-hide-add.ng-hide-add-active {
+	visibility: visible;
+	opacity: 0;
+}
+
 
 .ng-enter {
 	transition: all linear $transitionDuration;
@@ -65,6 +148,78 @@ h5{
 	transform: translate3d(100px, 0, 0);
 }
 
+.slide-effect {
+	transition: all linear $transitionDuration;
+}
+.slide-effect.ng-hide-remove {
+	height: 0%;
+}
+.slide-effect.ng-hide-remove.ng-hide-remove-active {
+	height: 100%;
+}
+.slide-effect.ng-hide-add {
+	height: 100%;
+}
+.slide-effect.ng-hide-add.ng-hide-add-active {
+	height: 0%;
+}
+
+/** Help area */
+.help-section{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	background-color: $primaryColor;
+	color: white;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	overflow: hidden;
+	text-align: left;
+	justify-content: flex-start;
+
+	.help-content{
+		margin-top: 64px;
+		padding: 20px;
+		overflow: auto;
+	}
+	p{
+		font-size: 16px;
+		line-height: 24px;
+	}
+	.sample-channel-button{
+		text-transform: none;
+		min-width: 68px;
+		line-height: 30px;
+		min-height: 30px;
+	}
+	.repo-label{
+		display: block;
+		line-height: 48px;
+		float: left;
+	}
+	.foot-links{
+		text-align: right;
+		float: right;
+		font-size: 12px;
+		a{
+			margin-left: 15px;
+			text-decoration: none;
+			color: white;
+			font-size: 14px;
+			// @include transition(all $transitionDuration);
+			&:hover{
+				color: $accentColor;
+			// 	font-size: 15px;
+			// 	padding: 0px;
+			}
+		}
+	}
+	&.ng-hide-add *{
+		display: none;
+	}
+}
+
 /** Chat area */
 .chat-message-container{
 	margin-bottom: 67px;
@@ -75,7 +230,7 @@ h5{
 		padding: 5px;
 	}
 	.user-alone{
-		color: $accentColor;
+		color: $primaryColor;
 	}
 }
 .chat-room{

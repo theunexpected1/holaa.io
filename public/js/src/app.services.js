@@ -16,6 +16,18 @@ angular.module('app.services', [])
 		};
 		return obj;
 	})
+	.factory('randomChannel', function(){
+		return {
+			generate: function() {
+		    	var text = "";
+		    	var limit = 5;
+			    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			    for (var i=0; i<limit; i++)
+			        text += possible.charAt(Math.floor(Math.random() * possible.length));
+			    return text;
+			}
+		};
+	})
 	.service('colors',
 		function(){
 			var colors = {

@@ -19,23 +19,65 @@
 <body ui-view ng-class="{'ready': appReady}">
 	<div layout="column" class="main-content">
 		<md-toolbar class="md-primary app-toolbar" layout="row" layout-wrap>
-			<h1 class="md-toolbar-tools" flex>
+			<h1 class="md-toolbar-tools" flex ng-show="!helpShown">
 				<span ng-show="!userReadyToChat"> Join the conversation</span>
 				<span ng-show="userReadyToChat"> {{channel}} </span>
 			</h1>
-			<div flex></div>
+			<h1 class="md-toolbar-tools" flex ng-show="helpShown">
+				<span> Holaa</span>
+			</h1>
 			
-			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1" class="action">
+			<md-button ng-click="toggleHelp()" class="md-icon-button action help-action" ng-class="{'md-accent': helpShown}" aria-label="Help"><span class="entypo-help"></span></md-button>
+			<div flex></div>
+			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1 && !helpShown" class="visibility-effect md-icon-button action">
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
-			<md-button ng-show="userReadyToChat" class="action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout"></span></md-button>
+			<md-button ng-show="userReadyToChat && !helpShown" class="visibility-effect md-icon-button action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout"></span></md-button>
+			<md-button ng-show="$mdMedia('md') || helpShown" ng-class="{'md-accent': hoverGithub1}" ng-mouseenter="hoverGithub1=true"
+    ng-mouseleave="hoverGithub1=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="left"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button>
+
 			</h5>
 		</md-toolbar>
-
-		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat">
+		
+		<div layout="column" flex layout-align="center center" ng-show="helpShown" class="help-section slide-effect">
+			<div class="help-content">
+				<p> Holaa.io - Holaa is an anonymous, real time, interactive, public chat on any topic (hashtags).</p>
+				<p>No history, no login, just talk!</p>
+				<hr>
+				<p> Here are a few sample channels for you to play around:</p>
+				<md-button
+					ng-repeat="ch in ['$general', '$random', '$fun', '$angularjs', 'holaa'] track by $index"
+					class="sample-channel-button md-raised"
+					ng-class="{'md-accent': hover}"
+					ng-mouseenter="hover=true"
+					ng-mouseleave="hover=false"
+					ng-href="http://holaa.io/{{ch}}/">
+					{{ch}}
+				</md-button>
+				<p> Private channels generated for you:</p>
+				<md-button
+					ng-repeat="ch in [randomChannel1, randomChannel2] track by $index"
+					class="sample-channel-button md-raised"
+					ng-class="{'md-accent': hover}"
+					ng-mouseenter="hover=true"
+					ng-mouseleave="hover=false"
+					ng-href="http://holaa.io/${{ch}}/">
+					${{ch}}
+				</md-button>
+				<hr>
+				<p> <span class="repo-label">Check out the repo at</span> <md-button ng-class="{'md-accent': hoverGithub2}" ng-mouseenter="hoverGithub2=true" ng-mouseleave="hoverGithub2=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="top"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button></p>
+				<p class="foot-links md-accent">
+					<md-tooltip md-direction="left">{{authorTooltip || '@theunexpected1'}}</md-tooltip>
+					<span>By</span>
+					<a href="https://github.com/theunexpected1/" target="_blank" ng-mouseenter="authorTooltip='@theunexpected1';"><span class="entypo-github" ></span></a>
+					<a href="https://twitter.com/rahul_vagadiya/" target="_blank" ng-mouseenter="authorTooltip='@rahul_vagadiya';"><span class="entypo-twitter" ></span></a>
+				</p>
+			</div>
+		</div>
+		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat" class="login-box">
 			<div layout="column" layout-align="center">
 				<md-content layout-padding layout-align="center">
-					<h3> Start a conversation with the world </h3>
+					<h3> Start a conversation with the world</h3>
 					<form name="userForm" ng-submit="login()" >
 						<div layout="column" flex>
 							<div flex>
