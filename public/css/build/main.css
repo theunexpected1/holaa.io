@@ -150,7 +150,7 @@ md-toolbar {
   text-align: left;
   justify-content: flex-start; }
   .help-section .help-content {
-    margin-top: 64px;
+    margin-top: 50px;
     padding: 20px;
     overflow: auto; }
   .help-section p {
