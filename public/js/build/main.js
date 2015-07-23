@@ -30,6 +30,10 @@ angular.module('app', [
 					url: '/',
 					controller: 'appController'
 				})
+				.state('about', {
+					url: '/about',
+					controller: 'appController'
+				})
 				.state('channel', {
 					url: '/$:channel',
 					controller: 'appController'
@@ -45,6 +49,7 @@ angular.module('app', [
 
 	.controller('appController', [
 		'$scope',
+		'$state',
 		'$stateParams',
 		'$mdSidenav',
 		'$sce',
@@ -52,7 +57,8 @@ angular.module('app', [
 		'$anchorScroll',
 		'socket',
 		'colors',
-		function($scope, $stateParams, $mdSidenav, $sce, $location, $anchorScroll, socket, colors){
+		'randomChannel',
+		function($scope, $state, $stateParams, $mdSidenav, $sce, $location, $anchorScroll, socket, colors, randomChannel){
 			// Setup Initials
 			var defaultChannelName = '$general';
 
@@ -227,11 +233,16 @@ angular.module('app', [
 				$scope.messages = [];
 				$scope.isScrolledToBottom = true;
 				$scope.helpShown = false;
+				$scope.randomChannel1 = randomChannel.generate();
+				$scope.randomChannel2 = randomChannel.generate();
 				if($scope.channel && $scope.user.fullName){
 					// Give the user's name a unique color
 					$scope.user.color = colors.randomizeFromConfig();
 					$scope.userReadyToChat = true;
 					$scope.initializeConnection();
+				}
+				if($state.current.name === 'about'){
+					$scope.helpShown = true;
 				}
 			};
 			$scope.initialize();
@@ -255,6 +266,18 @@ angular.module('app.services', [])
 			}
 		};
 		return obj;
+	})
+	.factory('randomChannel', function(){
+		return {
+			generate: function() {
+		    	var text = "";
+		    	var limit = 5;
+			    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			    for (var i=0; i<limit; i++)
+			        text += possible.charAt(Math.floor(Math.random() * possible.length));
+			    return text;
+			}
+		};
 	})
 	.service('colors',
 		function(){

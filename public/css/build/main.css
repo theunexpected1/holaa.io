@@ -15,6 +15,13 @@ a.md-button:not([disabled]).md-icon-button:hover,
 .app-toolbar .action {
   font-size: 20px;
   margin: 8px; }
+.app-toolbar .help-action {
+  position: absolute;
+  left: 50%;
+  margin-left: -24px; }
+
+.github-action {
+  font-size: 20px; }
 
 .main-content {
   height: 100%; }
@@ -24,6 +31,19 @@ h5 {
 
 #bottom {
   padding-bottom: 50px; }
+
+/* order */
+md-toolbar {
+  position: relative;
+  z-index: 3; }
+
+.help-section {
+  z-index: 2; }
+
+.login-box,
+.chat-room-container {
+  position: relative;
+  z-index: 1; }
 
 /* Effects */
 /* The starting CSS styles for the enter animation */
@@ -40,6 +60,49 @@ h5 {
   transition: all 0.15s; }
 
 .fade.ng-hide {
+  opacity: 0; }
+
+.fade.ng-hide-remove {
+  opacity: 0; }
+
+.fade.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1; }
+
+.fade.ng-hide-add {
+  opacity: 1; }
+
+.fade.ng-hide-add.ng-hide-add-active {
+  opacity: 0; }
+
+.visibility-effect {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -ms-transition: all 0.15s;
+  transition: all 0.15s; }
+
+.visibility-effect.ng-hide {
+  display: block !important;
+  visibility: hidden;
+  opacity: 0; }
+  .visibility-effect.ng-hide.md-toolbar-tools {
+    display: flex !important; }
+
+.visibility-effect.ng-hide-remove {
+  visibility: hidden;
+  opacity: 0; }
+
+.visibility-effect.ng-hide-remove.ng-hide-remove-active {
+  visibility: visible;
+  opacity: 1; }
+
+.visibility-effect.ng-hide-add {
+  visibility: visible;
+  opacity: 1; }
+
+.visibility-effect.ng-hide-add.ng-hide-add-active {
+  visibility: visible;
   opacity: 0; }
 
 .ng-enter {
@@ -75,15 +138,46 @@ h5 {
 
 /** Help area */
 .help-section {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
+  top: 0;
   background-color: #3F51B5;
   color: white;
-  z-index: 22222222;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
-  overflow: hidden; }
+  overflow: hidden;
+  text-align: left;
+  justify-content: flex-start; }
+  .help-section .help-content {
+    margin-top: 64px;
+    padding: 20px;
+    overflow: auto; }
+  .help-section p {
+    font-size: 16px;
+    line-height: 24px; }
+  .help-section .sample-channel-button {
+    text-transform: none;
+    min-width: 68px;
+    line-height: 30px;
+    min-height: 30px; }
+  .help-section .repo-label {
+    display: block;
+    line-height: 48px;
+    float: left; }
+  .help-section .foot-links {
+    text-align: right;
+    float: right;
+    font-size: 12px; }
+    .help-section .foot-links a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: white;
+      font-size: 14px; }
+      .help-section .foot-links a:hover {
+        color: #FF4081; }
+  .help-section.ng-hide-add * {
+    display: none; }
 
 /** Chat area */
 .chat-message-container {
