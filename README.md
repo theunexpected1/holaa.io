@@ -1,6 +1,6 @@
 # Holaa.io
-Live interactions / conversations around public hashtags. No history, no login, just talk on any topic.
-Holaa.io is an anonymous public chat on any topic (hashtags) - No history, no login, just choose a topic and talk.
+Live interactions / conversations around public dollartags. No history, no login, just talk on any topic.
+Holaa.io is an anonymous public chat on any topic (dollartags) - No history, no login, just choose a topic and talk.
 
 Built with MEAN Stack, Angular-Material UI & sockets
 
