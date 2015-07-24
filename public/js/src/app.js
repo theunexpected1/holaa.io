@@ -52,11 +52,12 @@ angular.module('app', [
 		'$stateParams',
 		'$mdSidenav',
 		'$sce',
+		'$timeout',
 		'$location',
 		'socket',
 		'colors',
 		'randomChannel',
-		function($scope, $state, $stateParams, $mdSidenav, $sce, $location, socket, colors, randomChannel){
+		function($scope, $state, $stateParams, $mdSidenav, $sce, $timeout, $location, socket, colors, randomChannel){
 			// Setup Initials
 			var defaultChannelName = '$general';
 
@@ -145,10 +146,12 @@ angular.module('app', [
 			 * @return {null}
 			 */
 			$scope.scrollToBottom = function(){
-				if($scope.isScrolledToBottom){
-					var $elem = $('.chat-message-container');
-					$elem.scrollTop($elem[0].scrollHeight);
-				}
+				$timeout(function(){
+					if($scope.isScrolledToBottom){
+						var $elem = $('.chat-message-container');
+						$elem.scrollTop($elem[0].scrollHeight);
+					}
+				});
 			}
 
 			/**
