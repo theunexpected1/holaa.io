@@ -170,7 +170,7 @@ angular.module('app', [
 							user: {name: 'admin', color: 'black'},
 							type: 'bot'
 						});
-						// Scroll to bottom on every message
+						// Scroll to bottom on every message, even bot messages
 						$scope.scrollToBottom();
 					});
 				});
