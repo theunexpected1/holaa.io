@@ -54,11 +54,10 @@ angular.module('app', [
 		'$mdSidenav',
 		'$sce',
 		'$location',
-		'$anchorScroll',
 		'socket',
 		'colors',
 		'randomChannel',
-		function($scope, $state, $stateParams, $mdSidenav, $sce, $location, $anchorScroll, socket, colors, randomChannel){
+		function($scope, $state, $stateParams, $mdSidenav, $sce, $location, socket, colors, randomChannel){
 			// Setup Initials
 			var defaultChannelName = '$general';
 
@@ -143,12 +142,14 @@ angular.module('app', [
 			}
 
 			/**
-			 * Scroll to a given hash. Gracefully fails if element is non-existent
-			 * @param  {String} hash hash of the element to scroll to
+			 * Scroll to a the bottom of chat messages.
 			 * @return {null}
 			 */
-			$scope.scrollTo = function(hash){
-				$anchorScroll(hash);
+			$scope.scrollToBottom = function(){
+				if($scope.isScrolledToBottom){
+					var $elem = $('.chat-message-container');
+					$elem.scrollTop($elem[0].scrollHeight);
+				}
 			}
 
 			/**
@@ -170,6 +171,8 @@ angular.module('app', [
 							user: {name: 'admin', color: 'black'},
 							type: 'bot'
 						});
+						// Scroll to bottom on every message
+						$scope.scrollToBottom();
 					});
 				});
 
@@ -200,9 +203,7 @@ angular.module('app', [
 							});
 
 							// Scroll to bottom on every message
-							if($scope.isScrolledToBottom){
-								$scope.scrollTo('bottom');
-							}
+							$scope.scrollToBottom();
 						});
 					}
 				});
