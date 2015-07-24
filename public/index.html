@@ -44,7 +44,7 @@
 				<hr>
 				<p> Few sample channels for you to have fun:</p>
 				<md-button
-					ng-repeat="ch in ['$general', '$random', '$fun', '$angularjs', 'holaa'] track by $index"
+					ng-repeat="ch in ['$general', '$random', '$fun', '$angularjs', '$holaa'] track by $index"
 					class="sample-channel-button md-raised"
 					ng-class="{'md-accent': hover}"
 					ng-mouseenter="hover=true"
@@ -113,7 +113,6 @@
 						</div>
 					</div>
 					<h5 class="message-block user-alone" ng-show="users.length == 1"> There is nobody apart from you in this channel</h5>
-					<div id="bottom"></div>
 				</div>
 				<form name="messageForm" ng-submit="submitMessage()" layout="row" class="chat-input-container">
 					<h5 class="author" ng-attr-title="{{user.fullName}}">
@@ -143,7 +142,8 @@
 	<script src="/bower_components/lodash/lodash.min.js"></script>
 	<script src="/bower_components/angular/angular.min.js"></script>
 	<script src="/bower_components/ui-router/release/angular-ui-router.min.js"></script>
-
+	<!-- chat-message-container -->
+	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
 	<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
 	<script src="/bower_components/angular-material/angular-material.min.js"></script>
