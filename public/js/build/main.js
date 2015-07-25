@@ -97,12 +97,18 @@ angular.module('app', [
 				return value;
 			};
 
+			$scope.switchChannel = function(channelName){
+				$scope.fixChannelName(channelName);
+			}
+
 			/**
 			 * Login to a specific channel
 			 * @return {Void}
 			 */
-			$scope.login = function(){
-				$location.path($scope.channel + '/' + $scope.user.fullName);
+			$scope.login = function(form){
+				if(form.$valid) {
+					$location.path($scope.channel + '/' + $scope.user.fullName);
+				}
 			};
 
 			/**
@@ -128,7 +134,7 @@ angular.module('app', [
 			 * Send a message from client
 			 * @return {[type]} [description]
 			 */
-			$scope.submitMessage = function(){
+			$scope.submitMessage = function(){				
 				if(socket.isConnected()){
 					socket.conn.emit('message', {
 						user: $scope.user,

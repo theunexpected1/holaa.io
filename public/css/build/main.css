@@ -12,6 +12,12 @@ a.md-button:not([disabled]).md-icon-button:hover,
 .md-button:not([disabled]).md-icon-button:hover {
   background-color: rgba(158, 158, 158, 0.2); }
 
+.custom-button, .help-section .sample-channel-button {
+  text-transform: none;
+  min-width: 68px;
+  line-height: 30px;
+  min-height: 30px; }
+
 .app-toolbar .action {
   font-size: 20px;
   margin: 8px; }
@@ -156,11 +162,6 @@ md-toolbar {
   .help-section p {
     font-size: 16px;
     line-height: 24px; }
-  .help-section .sample-channel-button {
-    text-transform: none;
-    min-width: 68px;
-    line-height: 30px;
-    min-height: 30px; }
   .help-section .repo-label {
     display: block;
     line-height: 48px;
@@ -178,6 +179,17 @@ md-toolbar {
         color: #FF4081; }
   .help-section.ng-hide-add * {
     display: none; }
+
+/** Login box */
+.login-box .channel-assist {
+  padding: 4px 10px 10px;
+  background-color: #ECECEC;
+  margin-top: 20px;
+  border-radius: 5px; }
+  .login-box .channel-assist p {
+    margin: 6px;
+    font-size: 14px;
+    color: #3F51B5; }
 
 /** Chat area */
 .chat-message-container {
@@ -246,5 +258,17 @@ md-sidenav {
           transition: all 0.15s; }
         md-sidenav md-content ul li:hover [class*="entypo-"] {
           padding-right: 5px; }
+
+/**
+ * Media Queries
+ */
+/** Smaller devices */
+@media (max-width: 960px) {
+  /** Login box */
+  .login-box .channel-assist .custom-button, .login-box .channel-assist .help-section .sample-channel-button, .help-section .login-box .channel-assist .sample-channel-button {
+    min-width: 48px;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-size: 13px; } }
 
 /*# sourceMappingURL=main.css.map */

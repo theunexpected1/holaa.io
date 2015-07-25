@@ -45,17 +45,17 @@
 				<p> Few sample channels for you to have fun:</p>
 				<md-button
 					ng-repeat="ch in ['general', 'random', 'fun', 'angularjs', 'holaa'] track by $index"
-					class="sample-channel-button md-raised"
+					class="custom-button md-raised"
 					ui-sref="channel({channel: ch})"
 					ng-class="{'md-accent': hover}"
 					ng-mouseenter="hover=true"
 					ng-mouseleave="hover=false">
-					{{ch}}
+					${{ch}}
 				</md-button>
 				<p> Private channels generated for you:</p>
 				<md-button
 					ng-repeat="ch in [randomChannel1, randomChannel2] track by $index"
-					class="sample-channel-button md-raised"
+					class="custom-button md-raised"
 					ui-sref="channel({channel: randomChannel1})"
 					ng-class="{'md-accent': hover}"
 					ng-mouseenter="hover=true"
@@ -75,8 +75,8 @@
 		<div layout="column" flex layout-align="center center" ng-show="!userReadyToChat" class="login-box">
 			<div layout="column" layout-align="center">
 				<md-content layout-padding layout-align="center">
-					<h3> Start a conversation with the world</h3>
-					<form name="userForm" ng-submit="login()" >
+					<h3> Enter your name, choose your channel and happy chatting.</h3>
+					<form name="form" ng-submit="login(form)">
 						<div layout="column" flex>
 							<div flex>
 								<md-input-container>
@@ -87,12 +87,24 @@
 							<div flex layout="row">
 								<md-input-container flex>
 									<label>Channel</label>
-									<input ng-model="channel" ng-init="fixChannelName(channel, true)" ng-blur="fixChannelName(channel, true)" ng-keyup="fixChannelName(channel, false)">
+									<input required ng-model="channel" ng-init="fixChannelName(channel, true)" ng-blur="fixChannelName(channel, true)" ng-keyup="fixChannelName(channel, false)">
 								</md-input-container>
-								<md-button class=" md-fab md-accent ">Enter</md-button>
+								<md-button class=" md-fab md-accent" ng-disabled="form.$invalid">Enter</md-button>
 							</div>
 						</div>
 					</form>
+					<div class="channel-assist">
+						<p> Try from one of the below channels:</p>
+						<md-button
+							ng-repeat="ch in ['general', 'random', 'fun', 'angularjs', 'holaa'] track by $index"
+							class="custom-button md-raised"
+							ng-class="{'md-accent': hover}"
+							ng-click="switchChannel(ch)"
+							ng-mouseenter="hover=true"
+							ng-mouseleave="hover=false">
+							${{ch}}
+						</md-button>
+					</div>
 				</md-content>
 			</div>
 		</div>

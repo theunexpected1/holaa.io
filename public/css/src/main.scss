@@ -1,5 +1,6 @@
 $primaryColor: #3F51B5;
 $accentColor: #FF4081;
+$lightGreyColor: #ECECEC;
 
 $transitionDuration: 0.15s;
 
@@ -8,6 +9,13 @@ $transitionDuration: 0.15s;
      -moz-transition: $all;
       -ms-transition: $all;
           transition: $all;
+}
+
+@mixin transition-delay($params) {
+  -webkit-transition-delay: $params;
+     -moz-transition-delay: $params;
+      -ms-transition-delay: $params;
+          transition-delay: $params;
 }
 
 @mixin transform($param) {
@@ -29,6 +37,13 @@ body{
 a.md-button:not([disabled]).md-icon-button:hover,
 .md-button:not([disabled]).md-icon-button:hover{
 	background-color: rgba(158,158,158,0.2);
+}
+
+.custom-button{
+	text-transform: none;
+	min-width: 68px;
+	line-height: 30px;
+	min-height: 30px;
 }
 
 .app-toolbar{
@@ -188,10 +203,7 @@ md-toolbar{
 		line-height: 24px;
 	}
 	.sample-channel-button{
-		text-transform: none;
-		min-width: 68px;
-		line-height: 30px;
-		min-height: 30px;
+		@extend .custom-button;
 	}
 	.repo-label{
 		display: block;
@@ -207,16 +219,29 @@ md-toolbar{
 			text-decoration: none;
 			color: white;
 			font-size: 14px;
-			// @include transition(all $transitionDuration);
 			&:hover{
 				color: $accentColor;
-			// 	font-size: 15px;
-			// 	padding: 0px;
 			}
 		}
 	}
 	&.ng-hide-add *{
 		display: none;
+	}
+}
+
+/** Login box */
+.login-box{
+	.channel-assist{
+		p{
+			margin: 6px;
+			font-size: 14px;
+			color: $primaryColor;
+		}
+
+		padding: 4px 10px 10px;
+		background-color: $lightGreyColor;
+		margin-top: 20px;
+		border-radius: 5px;
 	}
 }
 
@@ -303,6 +328,25 @@ md-sidenav{
 				&:hover [class*="entypo-"]{
 					padding-right: 5px;
 				}
+			}
+		}
+	}
+}
+
+/**
+ * Media Queries
+ */
+
+ /** Smaller devices */
+ @media (max-width: 960px) {
+	/** Login box */
+	.login-box{
+		.channel-assist{
+			.custom-button{
+				min-width: 48px;
+				margin-left: 3px;
+				margin-right: 3px;
+				font-size: 13px;
 			}
 		}
 	}
