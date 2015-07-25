@@ -105,12 +105,12 @@ angular.module('app', [
 			};
 
 			/**
-			 * Logout from channel and redirect to home page
+			 * Logout from channel and redirect to channel page if it exists (which it should), otherwise root
 			 * @return {Void}
 			 */
 			$scope.logout = function(){
 				$scope.disconnect();
-				$location.path('/');
+				$location.path($scope.channel || '/');
 			};
 
 			/**
