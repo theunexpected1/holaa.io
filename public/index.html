@@ -44,22 +44,22 @@
 				<hr>
 				<p> Few sample channels for you to have fun:</p>
 				<md-button
-					ng-repeat="ch in ['$general', '$random', '$fun', '$angularjs', '$holaa'] track by $index"
+					ng-repeat="ch in ['general', 'random', 'fun', 'angularjs', 'holaa'] track by $index"
 					class="sample-channel-button md-raised"
+					ui-sref="channel({channel: ch})"
 					ng-class="{'md-accent': hover}"
 					ng-mouseenter="hover=true"
-					ng-mouseleave="hover=false"
-					ng-href="http://holaa.io/{{ch}}/">
+					ng-mouseleave="hover=false">
 					{{ch}}
 				</md-button>
 				<p> Private channels generated for you:</p>
 				<md-button
 					ng-repeat="ch in [randomChannel1, randomChannel2] track by $index"
 					class="sample-channel-button md-raised"
+					ui-sref="channel({channel: randomChannel1})"
 					ng-class="{'md-accent': hover}"
 					ng-mouseenter="hover=true"
-					ng-mouseleave="hover=false"
-					ng-href="http://holaa.io/${{ch}}/">
+					ng-mouseleave="hover=false">
 					${{ch}}
 				</md-button>
 				<hr>
