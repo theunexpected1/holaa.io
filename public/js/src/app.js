@@ -98,21 +98,30 @@ angular.module('app', [
 
 			/**
 			 * Login to a specific channel
-			 * @return {null}
+			 * @return {Void}
 			 */
 			$scope.login = function(){
 				$location.path($scope.channel + '/' + $scope.user.fullName);
 			};
 
 			/**
-			 * Logout from channel
-			 * @return {null}
+			 * Logout from channel and redirect to home page
+			 * @return {Void}
 			 */
 			$scope.logout = function(){
+				$scope.disconnect();
+				$location.path('/');
+			};
+
+			/**
+			 * Disconnect the socket connection if it exists
+			 * @return   {Void}
+			 */
+			$scope.disconnect = function(){
 				if(socket && socket.conn){
 					socket.conn.close();
 				}
-			};
+			}
 
 			/**
 			 * Send a message from client
@@ -131,7 +140,7 @@ angular.module('app', [
 
 			/**
 			 * Show hide the channel information / the sidebar. Only applicable on mobile, always visible on tablet/desktop
-			 * @return {null}
+			 * @return {Void}
 			 */
 			$scope.toggleChannelInformation = function(){
 				$mdSidenav('active-users').toggle();
@@ -143,7 +152,7 @@ angular.module('app', [
 
 			/**
 			 * Scroll to a the bottom of chat messages.
-			 * @return {null}
+			 * @return {Void}
 			 */
 			$scope.scrollToBottom = function(){
 				$timeout(function(){
@@ -156,7 +165,7 @@ angular.module('app', [
 
 			/**
 			 * Connect to the socket and enable listeners. Also, log the user in via socket
-			 * @return {null}
+			 * @return {Void}
 			 */
 			$scope.initializeConnection = function(){
 				// Connect to the socket
@@ -210,10 +219,8 @@ angular.module('app', [
 					}
 				});
 
-				// Logout user on disconnection
-				socket.conn.on('disconnect', function(){
-					$location.path('/');
-				});
+				// Logout user on disconnection - do nothing
+				socket.conn.on('disconnect', angular.noop);
 
 				// Send initial message
 				// Let them know I am here
@@ -227,7 +234,7 @@ angular.module('app', [
 			// Initialize
 			$scope.initialize = function(){
 				$scope.appReady = true;
-				$scope.logout();
+				$scope.disconnect();
 				$scope.channel = $stateParams.channel || defaultChannelName;
 				$scope.user = $stateParams.user ? {fullName: $stateParams.user} : {};
 				$scope.users = [];
