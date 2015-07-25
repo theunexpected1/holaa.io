@@ -219,7 +219,7 @@ angular.module('app', [
 					}
 				});
 
-				// Logout user on disconnection - do nothing
+				// Do nothing explicitly on disconnection
 				socket.conn.on('disconnect', angular.noop);
 
 				// Send initial message
