@@ -17,6 +17,29 @@ angular.module('app.services', [])
 		return obj;
 	})
 	/**
+	 * Factory to manage local storage
+	 * @return   {Object} Local Storage Manager
+	 * @memberOf kal.{[namespace]}
+	 */
+	.factory('storage', [
+		'$window',
+		'$rootScope',
+		function($window, $rootScope) {
+		  return {
+		    set: function(key, val) {
+		      $window.localStorage && $window.localStorage.setItem(key, val);
+		      return this;
+		    },
+		    get: function(key) {
+		      return $window.localStorage && $window.localStorage.getItem(key);
+		    },
+		    remove: function(key) {
+		      return $window.localStorage && $window.localStorage.removeItem(key);
+		    }
+		  };
+		}
+	])
+	/**
 	 * Generate random channel name (5 characters)
 	 */
 	.factory('randomChannel', function(){

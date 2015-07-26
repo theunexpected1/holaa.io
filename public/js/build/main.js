@@ -39,7 +39,7 @@ angular.module('app', [
 					controller: 'appController'
 				})
 				.state('channelUser', {
-					url: '/$:channel/:user',
+					url: '/$:channel/:fullName',
 					controller: 'appController'
 				});
 
@@ -57,8 +57,9 @@ angular.module('app', [
 		'$location',
 		'socket',
 		'colors',
+		'storage',
 		'randomChannel',
-		function($scope, $state, $stateParams, $mdSidenav, $sce, $timeout, $location, socket, colors, randomChannel){
+		function($scope, $state, $stateParams, $mdSidenav, $sce, $timeout, $location, socket, colors, storage, randomChannel){
 			// Setup Initials
 			var defaultChannelName = '$general';
 
@@ -240,10 +241,17 @@ angular.module('app', [
 
 			// Initialize
 			$scope.initialize = function(){
+				// Identify User's name
+				var userFullName = $stateParams.fullName ? $stateParams.fullName : storage.get('user.fullName');
+				if(userFullName && storage.get('user.fullName') !== userFullName){
+					storage.set('user.fullName', userFullName);
+				}
+
 				$scope.appReady = true;
 				$scope.disconnect();
 				$scope.channel = $stateParams.channel || defaultChannelName;
-				$scope.user = $stateParams.user ? {fullName: $stateParams.user} : {};
+				$scope.user = userFullName ? {fullName: userFullName} : {};
+
 				$scope.users = [];
 				$scope.usersNames = "";
 				$scope.userReadyToChat = false;
@@ -252,7 +260,7 @@ angular.module('app', [
 				$scope.helpShown = false;
 				$scope.randomChannel1 = randomChannel.generate();
 				$scope.randomChannel2 = randomChannel.generate();
-				if($scope.channel && $scope.user.fullName){
+				if($stateParams.channel && $stateParams.fullName){
 					// Give the user's name a unique color
 					$scope.user.color = colors.randomizeFromConfig();
 					$scope.userReadyToChat = true;
@@ -284,6 +292,29 @@ angular.module('app.services', [])
 		};
 		return obj;
 	})
+	/**
+	 * Factory to manage local storage
+	 * @return   {Object} Local Storage Manager
+	 * @memberOf kal.{[namespace]}
+	 */
+	.factory('storage', [
+		'$window',
+		'$rootScope',
+		function($window, $rootScope) {
+		  return {
+		    set: function(key, val) {
+		      $window.localStorage && $window.localStorage.setItem(key, val);
+		      return this;
+		    },
+		    get: function(key) {
+		      return $window.localStorage && $window.localStorage.getItem(key);
+		    },
+		    remove: function(key) {
+		      return $window.localStorage && $window.localStorage.removeItem(key);
+		    }
+		  };
+		}
+	])
 	/**
 	 * Generate random channel name (5 characters)
 	 */
