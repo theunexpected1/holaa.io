@@ -31,9 +31,9 @@
 			<md-button ng-click="toggleChannelInformation()" ng-show="userReadyToChat && users.length > 1 && !helpShown" class="fade md-icon-button action" ng-attr-title="{{users.length}} users online"> 
 				<span class="entypo-user"></span> {{users.length}}
 			</md-button>
+			<md-button ng-show="helpShown" ng-class="{'md-accent': hoverGithub1}" ng-mouseenter="hoverGithub1=true" ng-mouseleave="hoverGithub1=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="left"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button>
+    		<md-button hide-sm ng-show="!helpShown" ng-class="{'md-accent': hoverGithub2}" ng-mouseenter="hoverGithub2=true" ng-mouseleave="hoverGithub2=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="left"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button>
 			<md-button ng-show="userReadyToChat && !helpShown" class="fade md-icon-button action" aria-label="Logout" ng-click="logout()"><span class="entypo-logout" title="Logout"></span></md-button>
-			<md-button ng-show="$mdMedia('md') || helpShown" ng-class="{'md-accent': hoverGithub1}" ng-mouseenter="hoverGithub1=true"
-    ng-mouseleave="hoverGithub1=false" class="fade md-icon-button github-action action" aria-label="Github" href="https://github.com/theunexpected1/holaa.io" target="_blank"><md-tooltip md-direction="left"> Github Repo</md-tooltip><span class="entypo-github" ></span></md-button>
 
 			</h5>
 		</md-toolbar>
