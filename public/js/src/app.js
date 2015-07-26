@@ -181,7 +181,6 @@ angular.module('app', [
 				// Enable listeners
 				// Login happened
 				socket.conn.on('login', function(json){
-					console.log('socket:login');
 					$scope.users = json.users;
 					$scope.$apply(function(){
 						$scope.messages.push({
@@ -196,8 +195,6 @@ angular.module('app', [
 
 				// On users leaving chat
 				socket.conn.on('userLeft', function(user){
-					console.log('socket:userLeft');
-					console.log(user);
 					$scope.$apply(function(){
 						_.remove($scope.users, user);
 						$scope.messages.push({
@@ -210,7 +207,6 @@ angular.module('app', [
 
 				// Message popped in
 				socket.conn.on('message', function(json){
-					console.log('socket:message in ' + json.channel);
 					if(json.channel == $scope.channel){
 						$scope.$apply(function(){
 							$scope.messages.push({
