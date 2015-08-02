@@ -128,7 +128,7 @@ angular.module('app', [
 				 * Login to a specific channel
 				 * @return {Void}
 				 */
-				login: function() {
+				login: function(form) {
 					if(form.$valid) {
 						$location.path($scope.channel + '/' + $scope.user.fullName);
 					}
