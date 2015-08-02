@@ -17,11 +17,32 @@ var express = require('express'),
  		res.sendFile(__dirname + '/public/');
 	});
 
- 	io.on('connection', function(socket){
- 		log.info('socket:connected!');
+	var socketApp = {
+		init: function() {
+			var _this = this;
+		 	io.on('connection', function(socket) {
+		 		log.info('socket:connected!');
 
- 		// Login listener
-		socket.on('login', function(json){
+		 		// Login listener
+				socket.on('login', function(json) {
+					_this.onLogin(json, socket);
+				});
+
+				socket.on('message', function(json) {
+					_this.onMessage(json, socket);
+				});
+
+				socket.on('logout', function() {
+					_this.disconnect(socket);
+				});
+
+				socket.on('disconnect', function() {
+					_this.onDisconnect(socket);
+				});
+ 			});
+		},
+
+		onLogin: function(json, socket) {
 			log.info('socket:login');
 			json.timestamp = Date.now();
 			log.info({
@@ -51,10 +72,8 @@ var express = require('express'),
 				user: json.user,
 				users: users[json.channel]
 			});
-		});
-
- 		// Incoming message listener
-		socket.on('message', function(json){
+		},
+		onMessage: function(json, socket) {
 			log.info('socket:message');
 			json.timestamp = Date.now();
 			log.info({
@@ -65,17 +84,16 @@ var express = require('express'),
 				}
 			});
 			io.to(socket.channel).emit('message', json);
-		});
-
-		socket.on('logout', function(){
-			socket.disconnect();
-		});
-
- 		// Disconnect listener
-		socket.on('disconnect', function(){
+		},
+		onDisconnect: function(socket) {
 			log.info('socket:disconnect');
 			// Let everyone, except the initiator, know that a user has left
 			socket.broadcast.to(socket.channel).emit('userLeft', socket.userDetails);
 			_.remove(users[socket.channel], socket.userDetails);
-		})
- 	});
+		},
+		disconnect: function(socket) {
+			socket.disconnect();
+		}
+	};
+
+	socketApp.init();
