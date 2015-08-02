@@ -1,12 +1,12 @@
 {
   "name": "holaa.io",
   "version": "0.0.1",
-  "description": "Holaa.io - Anonymous, real time, interactive, public chat on any topic (dollartags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
-  "main": "index.js",
+  "description": "Holaa.io - Anonymous, real time, interactive, lightweight, public chat on any topic (dollartags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
+  "main": "server.js",
   "scripts": {
     "test": "git status",
-    "start": "nodemon index | bunyan",
-    "start-dist" : "node index | bunyan"
+    "start": "nodemon server | bunyan",
+    "start-dist" : "node server | bunyan"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
     "chat",
     "Anonymous",
     "real time",
+    "lightweight",
+    "light",
     "interactive",
     "public chat",
     "no history",
