@@ -4,16 +4,16 @@ Holaa.io is an anonymous public chat on any topic (dollartags) - No history, no 
 
 Built with MEAN Stack, Angular-Material UI & sockets
 
-Enter Holaa: [http://holaachat.com/about](http://holaachat.com/about)
+Enter Holaa: [https://holaachat.com/about](https://holaachat.com/about)
 
 ![holaa-landing](holaa-landing.jpg)
 
 Try some of these $channels, enter your name and you're ready to chat:
-* [http://holaachat.com/$general](http://holaachat.com/$general)
-* [http://holaachat.com/$random](http://holaachat.com/$random)
-* [http://holaachat.com/$fun](http://holaachat.com/$fun)
-* [http://holaachat.com/$holaa](http://holaachat.com/$holaa)
-* [http://holaachat.com/$theunexpected1](http://holaachat.com/$theunexpected1)
+* [https://holaachat.com/$general](https://holaachat.com/$general)
+* [https://holaachat.com/$random](https://holaachat.com/$random)
+* [https://holaachat.com/$fun](https://holaachat.com/$fun)
+* [https://holaachat.com/$holaa](https://holaachat.com/$holaa)
+* [https://holaachat.com/$theunexpected1](https://holaachat.com/$theunexpected1)
 
 ## Technology
 * Front end (client) is built using:
