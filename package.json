@@ -1,7 +1,7 @@
 {
   "name": "holaa.io",
   "version": "0.0.1",
-  "description": "Holaa.io - Anonymous, real time, interactive, lightweight, public chat on any topic (dollartags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
+  "description": "Holaachat.com - Anonymous, real time, interactive, lightweight, public chat on any topic (dollartags) - No history, no login, just talk - Built with MEAN Stack, Angular-Material UI & sockets",
   "main": "server.js",
   "scripts": {
     "test": "git status",
@@ -15,6 +15,7 @@
   "keywords": [
     "holaa",
     "holaa.io",
+    "holaachat.com",
     "chat",
     "Anonymous",
     "real time",
