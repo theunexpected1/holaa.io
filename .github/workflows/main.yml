@@ -40,7 +40,7 @@ jobs:
       - name: Setup gcloud environment
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          service_account_key: 94f966afbfa5c2cbb22cb3ce363f5edc530d2cb4
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
       - name: Cleanup GCP stale versions
