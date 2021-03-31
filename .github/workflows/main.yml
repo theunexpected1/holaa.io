@@ -45,7 +45,7 @@ jobs:
 
       - name: Cleanup GCP stale versions
         id: gcp-cleanup-versions
-        run: sh ./scripts/gcp-cleanup-versions.sh bold-ally-309219
+        run: sh ./.github/workflows/scripts/gcp-cleanup-versions.sh bold-ally-309219
 
       - name: Deploy to GCP
         id: gcp-deploy
