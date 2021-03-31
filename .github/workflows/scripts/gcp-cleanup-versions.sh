@@ -12,15 +12,14 @@ gcloud config set project $PROJECT_NAME
 
 # Eg: Retain 2 versions of 'api', and 5 versions of 'default'
 gcpServices=("api" "default")
-# declare -a retainVersionsCount=(2 5)
 
 # 2. Set number of versions to retain per project
 case "$PROJECT_NAME" in
-  "remo-conference-next")
-    retainVersionsCount=(3 3)
+  "remo-conference")
+    retainVersionsCount=(2 5)
     ;;
   *)
-    retainVersionsCount=(3 3)
+    retainVersionsCount=(2 2)
     ;;
 esac
 
@@ -40,7 +39,7 @@ done
 # 4. Delete Versions (if any)
 if [ ! -z $versionsToDelete ]; then 
   echo "[gcp-cleacnup-versions] Deleting stale versions: $versionsToDelete..."
-  # gcloud app versions delete $versionsToDelete --quiet
+  gcloud app versions delete $versionsToDelete --quiet
   echo "[gcp-cleanup-versions] Successfully deleted stale versions."
 else
   echo "[gcp-cleanup-versions] No stale versions found across services as per criteria."
