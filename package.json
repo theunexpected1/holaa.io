@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "git status",
-    "start": "nodemon server | bunyan",
+    "start": "node server | bunyan",
     "start-dist": "node server | bunyan"
   },
   "repository": {

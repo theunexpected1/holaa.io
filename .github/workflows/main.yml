@@ -40,15 +40,13 @@ jobs:
 
       - name: Cleanup GCP stale versions
         id: gcp-cleanup-versions
-        run: |
-          sh gcp-cleanup-versions.sh bold-ally-309219
+        run: sh ./scripts/gcp-cleanup-versions.sh bold-ally-309219
+
+      - name: Deploy to GCP
+        id: gcp-cleanup-versions
+        run: gcloud app deploy
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Done!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
