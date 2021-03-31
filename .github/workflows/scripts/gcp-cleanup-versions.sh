@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # 1. Set the Google Cloud project
 if [ ! -z $1 ]; then 
   PROJECT_NAME=$1
