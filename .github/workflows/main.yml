@@ -30,6 +30,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        id: test-script
+        run: echo Done!
       
       # yeah, expose the key! (We'll dump this key later and move to secrets)
       - name: Setup gcloud environment
@@ -43,10 +48,6 @@ jobs:
         run: sh ./scripts/gcp-cleanup-versions.sh bold-ally-309219
 
       - name: Deploy to GCP
-        id: gcp-cleanup-versions
+        id: gcp-deploy
         run: gcloud app deploy
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Done!
 
