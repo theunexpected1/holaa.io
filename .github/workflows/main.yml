@@ -38,7 +38,7 @@ jobs:
 
       # Test Bash
       - name: Test ternary op
-        id: gcp-cleanup-versions
+        id: test-tern-op
         shell: bash
         run: |
           [[ github.event_name == 'workflow_dispatch' ]] && env_name=workflow_dispatch_input || env_name=other_input
