@@ -35,7 +35,16 @@ jobs:
       - name: Run a one-line script
         id: test-script
         run: echo Done!
-      
+
+      # Test Bash
+      - name: Cleanup GCP stale versions
+        id: gcp-cleanup-versions
+        shell: bash
+        run: |
+          [[ github.event_name == 'workflow_dispatch' ]] && env_name=workflow_dispatch_input || env_name=other_input
+          echo "github.event_name: $github.event_name";
+          echo "test: $env_name";
+
       # yeah, expose the key! (We'll dump this key later and move to secrets)
       - name: Setup gcloud environment
         uses: google-github-actions/setup-gcloud@v0.2.0
@@ -51,4 +60,3 @@ jobs:
       - name: Deploy to GCP
         id: gcp-deploy
         run: gcloud app deploy
-
