@@ -37,7 +37,7 @@ jobs:
         run: echo Done!
 
       # Test Bash
-      - name: Cleanup GCP stale versions
+      - name: Test ternary op
         id: gcp-cleanup-versions
         shell: bash
         run: |
