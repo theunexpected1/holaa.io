@@ -36,15 +36,6 @@ jobs:
         id: test-script
         run: echo Done!
 
-      # Test Bash
-      - name: Test ternary op
-        id: test-tern-op
-        shell: bash
-        run: |
-          [[ github.event_name == 'workflow_dispatch' ]] && env_name=workflow_dispatch_input || env_name=other_input
-          echo "github.event_name: $github.event_name";
-          echo "test: $env_name";
-
       # yeah, expose the key! (We'll dump this key later and move to secrets)
       - name: Setup gcloud environment
         uses: google-github-actions/setup-gcloud@v0.2.0
